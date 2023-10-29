@@ -1,0 +1,12 @@
+<div class="container">
+	<section class="mat-h1">
+		Scenes
+	</section>
+	<section class="content" [ngClass]="{'mobile' : isHandset}">
+		<mat-card *ngFor="let scene of scenes" (click)="onClicked(scene)" matRipple>
+			<mat-card-content>
+				{{scene.name | titlecase}}
+			</mat-card-content>
+		</mat-card>
+	</section>
+</div>

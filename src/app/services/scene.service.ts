@@ -1,0 +1,38 @@
+import { SceneDto } from '../utils/types/scene-dto.type';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Scene } from '../utils/types/scene.type';
+import { environment } from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SceneService {
+  url = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
+
+  updateById(id: number, data: SceneDto) {
+    return this.http.patch(this.url + '/scene/' + id, data);
+  }
+
+  getById(id: number) {
+    return this.http.get<Scene>(this.url + '/scene/' + id);
+  }
+
+  getAll() {
+    return this.http.get<Scene[]>(this.url + '/scene');
+  }
+
+  create(scene: SceneDto) {
+    return this.http.post(this.url + '/scene', scene);
+  }
+
+  deleteById(id: number) {
+    return this.http.delete(this.url + '/scene/' + id);
+  }
+
+  updateState(scene: Scene) {
+    return this.http.put(this.url + '/scene/' + scene.id + '/state', scene);
+  }
+}

@@ -1,0 +1,17 @@
+<div class="container">
+	<header class="row js-space-between">
+		<h2>Group</h2>
+		<button mat-mini-fab color="primary" (click)="onAddGroup()">
+			<mat-icon>add</mat-icon>
+		</button>
+	</header>
+	<div class="content row gap">
+		<section>
+			<app-comp-list-edit-delete [list]="groups" (onEdit)="onClickedEdit($event)"
+				(onDelete)="onClickedDelete($event)" (onInfo)="onClickedInfo($event)"></app-comp-list-edit-delete>
+		</section>
+		<section>
+			<app-group-info [devices]="devices"></app-group-info>
+		</section>
+	</div>
+</div>

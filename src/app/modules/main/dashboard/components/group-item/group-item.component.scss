@@ -1,0 +1,21 @@
+.content {
+	display: flex;
+	gap: 16px;
+}
+
+button {
+	background-color: transparent;
+	color: black;
+}
+
+.on {
+	background-color: rgb(186, 158, 231);
+	color: white;
+}
+
+.content > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}

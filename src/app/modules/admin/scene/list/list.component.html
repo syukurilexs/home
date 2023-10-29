@@ -1,0 +1,18 @@
+
+<div class="container">
+	<header class="row js-space-between">
+		<h2>Scenes</h2>
+		<button mat-mini-fab color="primary" (click)="onClickedAdd()">
+			<mat-icon>add</mat-icon>
+		</button>
+	</header>
+	<div class="content row gap">
+		<section>
+			<app-comp-list-edit-delete [list]="scenes" (onEdit)="onClickedEdit($event)"
+				(onDelete)="onClickedDelete($event)" (onInfo)="onClickedInfo($event)"></app-comp-list-edit-delete>
+		</section>
+		<section>
+			<app-info [data]="info"></app-info>
+		</section>
+	</div>
+</div>

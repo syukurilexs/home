@@ -1,0 +1,13 @@
+.container > div {
+	height: 49px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.container > div > div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 16px;
+}

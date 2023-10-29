@@ -1,0 +1,60 @@
+header {
+  justify-content: space-between;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.box {
+  display: flex;
+
+  gap: 16px;
+  flex-direction: row;
+
+  &.mobile {
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
+.box-item {
+  flex: 1;
+  //margin-right: 20px;
+
+  &.mobile {
+    margin-right: 0px;
+  }
+}
+
+.box-item:last-child {
+  margin-right: 0;
+}
+
+.action {
+  display: flex;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+}
+
+.item > div {
+  flex: 1;
+}
+
+.mdc-list {
+  margin: 16px;
+}

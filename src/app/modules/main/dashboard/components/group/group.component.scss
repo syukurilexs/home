@@ -1,0 +1,13 @@
+.container {
+  margin: 16px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  &.mobile {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,112 @@
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+/* For use in src/lib/core/theming/_palette.scss */
+$md-primary: (
+    50 : #e5e7f3,
+    100 : #bfc4e2,
+    200 : #949dcf,
+    300 : #6976bc,
+    400 : #4958ad,
+    500 : #293b9f,
+    600 : #243597,
+    700 : #1f2d8d,
+    800 : #192683,
+    900 : #0f1972,
+    A100 : #a6acff,
+    A200 : #737dff,
+    A400 : #404eff,
+    A700 : #2637ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-hijau: (
+    50 : #eef6e8,
+    100 : #d4e9c5,
+    200 : #b8da9f,
+    300 : #9bcb79,
+    400 : #85c05c,
+    500 : #70b53f,
+    600 : #68ae39,
+    700 : #5da531,
+    800 : #539d29,
+    900 : #418d1b,
+    A100 : #d7ffc6,
+    A200 : #b4ff93,
+    A400 : #90ff60,
+    A700 : #7eff47,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-main-pallete: (
+    50 : #e4e5e7,
+    100 : #bbbec3,
+    200 : #8e939c,
+    300 : #606774,
+    400 : #3e4756,
+    500 : #1c2638,
+    600 : #192232,
+    700 : #141c2b,
+    800 : #111724,
+    900 : #090d17,
+    A100 : #597eff,
+    A200 : #2656ff,
+    A400 : #0036f2,
+    A700 : #0030d9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+$my-primary: mat.define-palette($md-main-pallete,400);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$my-warn: mat.define-palette(mat.$red-palette);
+$my_hijau: mat.define-palette($md-hijau);

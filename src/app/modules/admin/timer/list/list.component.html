@@ -1,0 +1,39 @@
+<div class="container">
+	<header class="row js-space-between">
+		<h2>Timer</h2>
+		<button mat-mini-fab color="primary" (click)="onClickedAdd()">
+			<mat-icon>add</mat-icon>
+		</button>
+	</header>
+	<div class="content row gap">
+		<section>
+			<mat-card *ngFor="let item of devices">
+				<mat-card-header>
+					<mat-card-title>{{item.name}}</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="list" *ngFor="let timer of item.timers">
+						<mat-checkbox [checked]="timer.option === 'enable'" (change)="onChange(item.id ,timer)">
+						</mat-checkbox>
+						<span>
+							{{timer.time}}
+						</span>
+						<span>
+							{{timer.state}}
+						</span>
+						<div>
+							<button mat-icon-button color="primary" (click)="onEdit(item.id, timer.id)">
+								<mat-icon>edit</mat-icon>
+							</button>
+						</div>
+						<div>
+							<button mat-icon-button color="primary" (click)="onDelete(item.id, timer.id)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</section>
+	</div>
+</div>

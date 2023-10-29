@@ -1,0 +1,34 @@
+<mat-card *ngIf="device">
+	<mat-card-content>
+		<ng-container
+			*ngIf="device.type === DeviceType.Switch then suis; else lainlain">
+		</ng-container>
+
+		<ng-template #suis>
+			<div class="content" >
+				<span>Name </span>
+				<span>: {{device.name}}</span>
+
+				<span>Topic</span>
+				<span>: {{device.topic}}</span>
+
+				<span>Remark</span>
+				<span>: {{device.remark}}</span>
+			</div>
+		</ng-template>
+
+		<ng-template #lainlain>
+			<div class="content" >
+				<span>Name </span>
+				<span>: {{device.name}}</span>
+
+				<span>Topic</span>
+				<span>: {{device.topic}}</span>
+				
+				<span>Remark</span>
+				<span>: {{device.remark}}</span>
+			</div>
+		</ng-template>
+
+	</mat-card-content>
+</mat-card>

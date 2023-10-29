@@ -1,0 +1,20 @@
+.content > section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.list {
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.list span {
+  width: 70px;
+  text-align: right;
+}
+
+.list > * {
+	padding-right: 16px;
+}

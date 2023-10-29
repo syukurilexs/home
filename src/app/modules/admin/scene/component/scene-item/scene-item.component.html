@@ -1,0 +1,15 @@
+<div class="container col">
+	<div *ngFor="let item of input">
+
+		{{item.device.name}}
+
+		<div>
+			<mat-slide-toggle class="example-margin" [(ngModel)]="item.status">
+				{{item.status ? 'On' : 'Off'}}
+			</mat-slide-toggle>
+			<button mat-mini-fab (click)="onDelete(item.device.id)" type="button">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+header {
+  justify-content: space-between;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.box {
+  display: flex;
+
+  flex-direction: row;
+  gap: 16px;
+
+  &.mobile {
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
+.box-item {
+  flex: 1;
+}
+
+.box-item:last-child {
+  margin-right: 0;
+}
+
+.action {
+  display: flex;
+  gap: 16px;
+}

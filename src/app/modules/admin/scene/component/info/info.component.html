@@ -1,0 +1,14 @@
+<div class="container" *ngIf="data">
+	<mat-card>
+		<mat-card-content>
+
+			<div class="box">
+				<span>Name:</span><span>{{data.name}}</span><span></span>
+				<ng-container *ngFor="let item of data.sceneDevice">
+					<span>Device</span><span>{{item.device.name}} </span><span> {{item.state}}</span>
+				</ng-container>
+			</div>
+
+		</mat-card-content>
+	</mat-card>
+</div>

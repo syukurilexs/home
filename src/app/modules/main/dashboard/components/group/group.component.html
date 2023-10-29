@@ -1,0 +1,9 @@
+<div class="container">
+  <section class="mat-h1">
+    Groups
+  </section>
+  <section class="content" [ngClass]="{'mobile': isHandset}">
+    <app-group-item *ngFor="let item of groups" [group]="item">
+    </app-group-item>
+  </section>
+</div>

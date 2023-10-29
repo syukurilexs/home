@@ -1,0 +1,12 @@
+<div class="row js-space-between">
+	<h2>Details</h2>
+
+	<button mat-mini-fab color="primary" (click)="onAddDevice()">
+		<mat-icon>add</mat-icon>
+	</button>
+</div>
+<div class="gap" [ngClass]="isHandset ? 'column' : 'row'">
+	<app-comp-list-edit-delete [list]="devices" (onInfo)="onClickedInfo($event)" (onEdit)="onClickedEdit($event)"
+		(onDelete)="onClickedDelete($event)"></app-comp-list-edit-delete>
+	<app-device-info [device]="device"></app-device-info>
+</div>
