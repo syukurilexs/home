@@ -5,15 +5,19 @@
 # We label our stage as ‘builder’
 FROM node:18-alpine as builder
 
-COPY package.json package-lock.json ./
 
 ## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
 
-RUN npm ci && mkdir /ng-app && mv ./node_modules ./ng-app
+#COPY package.json package-lock.json ./
+#RUN npm ci && mkdir /ng-app && mv ./node_modules ./ng-app
 
 WORKDIR /ng-app
 
-COPY . .
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY ./src ./src
+COPY ./angular.json ./tsconfig.json ./tsconfig.app.json  ./
 
 ## Build the angular app in production mode and store the artifacts in dist folder
 
