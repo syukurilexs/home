@@ -5,17 +5,16 @@
 			<mat-icon>add</mat-icon>
 		</button>
 	</header>
-	<div class="content row gap">
-		<section>
+	<div class="content column gap1">
 			<mat-card *ngFor="let item of devices">
 				<mat-card-header>
 					<mat-card-title>{{item.name}}</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<div class="list" *ngFor="let timer of item.timers">
+					<div class="row ai-center gap" *ngFor="let timer of item.timers">
 						<mat-checkbox [checked]="timer.option === 'enable'" (change)="onChange(item.id ,timer)">
 						</mat-checkbox>
-						<span>
+						<span class="filler">
 							{{timer.time}}
 						</span>
 						<span>
@@ -34,6 +33,5 @@
 					</div>
 				</mat-card-content>
 			</mat-card>
-		</section>
 	</div>
 </div>
