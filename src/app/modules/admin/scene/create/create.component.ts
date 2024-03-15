@@ -4,12 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
 import { DeviceType } from 'src/app/utils/enums/device-type.enum';
-import { Device } from 'src/app/utils/types/device.type';
+import { Action, Device } from 'src/app/utils/types/device.type';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { State } from 'src/app/utils/enums/state.enum';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
+type SelectedSuisAction = { deviceId: number, actionId: number };
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -19,22 +21,43 @@ export class CreateComponent implements OnInit {
   form = this.fb.group({
     name: [null, Validators.required],
     device: [null],
+    suis: [null],
+    action: [null]
   });
+
   devices: Device[] = [];
   selectedDevices: SceneData[] = [];
   title = 'Add Scene';
   id$: Observable<number>;
   id!: number;
 
+  destroyed = new Subject<void>();
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay(),
+      takeUntil(this.destroyed)
+    );
+  isHandset = false;
+  switches: Device[] = [];
+  actions: Action[] = [];
+  selectedActions: SelectedSuisAction[] = [];
+
   constructor(
     private fb: FormBuilder,
     private readonly deviceService: DeviceService,
     private readonly sceneService: SceneService,
     private readonly location: Location,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.getDeviceList();
     this.id$ = route.params.pipe(map((p) => p['id']));
+
+    this.isHandset$.subscribe((x) => {
+      this.isHandset = x;
+    });
   }
 
   ngOnInit(): void {
@@ -43,6 +66,45 @@ export class CreateComponent implements OnInit {
         this.id = id;
         this.updateEdit();
       }
+    });
+
+    this.populateSwitch();
+    this.populateAction();
+  }
+
+  populateSwitch() {
+    this.deviceService.getAllByType(DeviceType.Switch).subscribe((switches) => {
+      this.switches = switches;
+    });
+  }
+
+  populateAction() {
+    this.deviceService.getAllAction().subscribe((action) => {
+      this.actions = action;
+    });
+  }
+
+  getSuis(id: number) {
+    return this.switches.find((x) => x.id === +id);
+  }
+
+  getAction(id: number) {
+    return this.actions.find((x) => x.id === +id);
+  }
+
+  currentSuis(id: number) {
+    const found = this.switches.find((x) => x.id === id);
+    if (found) {
+      return found.action;
+    } else {
+      return [];
+    }
+  }
+
+  onAddSuis() {
+    this.selectedActions.push({
+      deviceId: this.form.get('suis')?.value || 0,
+      actionId: this.form.get('action')?.value || 0,
     });
   }
 
@@ -73,6 +135,11 @@ export class CreateComponent implements OnInit {
 
         return haha;
       });
+
+      // Populate action list
+      scene.sceneAction.forEach(x => {
+        this.selectedActions.push({ actionId: x.action.id || 0, deviceId: x.action.device?.id || 0 });
+      })
     });
   }
 
@@ -105,6 +172,7 @@ export class CreateComponent implements OnInit {
         .create({
           name: this.form.controls['name'].value || '',
           data: this.selectedDevices,
+          actions: []
         })
         .subscribe((data) => {
           alert('Thanks!');
@@ -115,6 +183,7 @@ export class CreateComponent implements OnInit {
         .updateById(this.id, {
           name: this.form.controls['name'].value || '',
           data: this.selectedDevices,
+          actions: this.selectedActions.map(x => x.actionId)
         })
         .subscribe((data) => {
           alert('Thanks!');
@@ -136,4 +205,10 @@ export class CreateComponent implements OnInit {
     // Add back to devices
     this.devices.push(deleted[0].device);
   }
+
+  onDeleteAction(action: SelectedSuisAction) {
+    const index = this.selectedActions.indexOf(action);
+    this.selectedActions.splice(index, 1);
+  }
+
 }

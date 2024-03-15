@@ -1,26 +1,24 @@
-.full-width {
-  width: 100%;
+.shipping-card {
+  max-width: 600px;
 }
 
-.row {
+.box {
   display: flex;
+
   flex-direction: row;
-}
 
-.col {
-  flex: 1;
-  margin-right: 20px;
-}
+  &.mobile {
+    flex-direction: column;
+    // Reset
+    gap: 0;
 
-.col:last-child {
-  margin-right: 0;
-}
+    .p-top-8 {
+      // Reset
+      padding-top: 0;
 
-.col > button {
-  margin-top: 8px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
+      // Tumpang class sini
+      display: flex;
+      justify-content: right;
+    }
+  }
 }

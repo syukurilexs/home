@@ -41,6 +41,7 @@ export type Action = {
   id?: number;
   key: string;
   value: string;
+  device?: Device;
 };
 
 export type Timer = {

@@ -58,24 +58,40 @@ $my-dark-theme: mat.define-dark-theme(
   flex-direction: column;
 }
 
-.align-items-center {
+.filler {
+  flex: 1;
+}
+
+.ai-center {
   align-items: center;
+}
+
+.jc-end {
+  justify-content: end;
+}
+
+.jc-space-between {
+  justify-content: space-between;
+}
+
+.jc-center {
+  justify-content: center;
 }
 
 .js-space-between {
   justify-content: space-between;
 }
 
-.js-flex-end {
-  justify-content: flex-end;
-}
-
 .gap {
-  gap: 16px;
+  gap: 8px;
 }
 
 .gap2 {
   gap: 32px;
+}
+
+.p-top-8 {
+  padding-top: 8px;
 }
 
 .test-color1 {
@@ -84,6 +100,12 @@ $my-dark-theme: mat.define-dark-theme(
 
 .test-color2 {
   background-color: green;
+}
+
+.test-box {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
 }
 
 html,

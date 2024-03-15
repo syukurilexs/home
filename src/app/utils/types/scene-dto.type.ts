@@ -1,8 +1,9 @@
-import { Device } from './device.type';
+import { Action, Device } from './device.type';
 
 export type SceneDto = {
   name: string;
   data: SceneData[];
+  actions: Number[];
 };
 
 export type SceneData = {

@@ -1,9 +1,11 @@
-<div class="container col">
-	<div *ngFor="let item of input">
+<div class="column gap">
+	<div *ngFor="let item of input" class="row jc-space-between">
 
+		<div class="column jc-center">
 		{{item.device.name}}
+		</div>
 
-		<div>
+		<div class="row ai-center gap">
 			<mat-slide-toggle class="example-margin" [(ngModel)]="item.status">
 				{{item.status ? 'On' : 'Off'}}
 			</mat-slide-toggle>
