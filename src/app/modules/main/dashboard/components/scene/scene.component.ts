@@ -46,6 +46,6 @@ export class SceneComponent implements OnDestroy {
   }
 
   onClicked(scene: Scene) {
-    this.sceneService.updateState(scene).subscribe((data) => {});
+    this.sceneService.triggerScene(scene).subscribe((data) => {});
   }
 }

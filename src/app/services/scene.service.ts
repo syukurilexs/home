@@ -32,7 +32,7 @@ export class SceneService {
     return this.http.delete(this.url + '/scene/' + id);
   }
 
-  updateState(scene: Scene) {
-    return this.http.put(this.url + '/scene/' + scene.id + '/state', scene);
+  triggerScene(scene: Scene) {
+    return this.http.put(this.url + '/scene/' + scene.id + '/state', {});
   }
 }
