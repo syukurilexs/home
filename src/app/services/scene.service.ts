@@ -33,6 +33,6 @@ export class SceneService {
   }
 
   triggerScene(scene: Scene) {
-    return this.http.put(this.url + '/scene/' + scene.id + '/state', {});
+    return this.http.put(this.url + '/scene/' + scene.id + '/trigger', {});
   }
 }
