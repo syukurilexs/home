@@ -7,7 +7,7 @@
 	</header>
 	<section>
 		<form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
-			<mat-card class="shipping-card">
+			<mat-card class="box-1">
 				<mat-card-content>
 
 					<!-- Name -->
@@ -72,7 +72,7 @@
 
 					<!-- Action list -->
 					<div class="box">
-						<mat-card class="box-item">
+						<mat-card class="row filler">
 							<mat-list role="list">
 								<div *ngFor="let item of selectedActions">
 									<mat-list-item role="listitem">
