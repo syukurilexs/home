@@ -44,7 +44,7 @@
 
 					<!-- Action Selection -->
 					<div class="gap box" [ngClass]="{'mobile': isHandset}">
-						<mat-form-field class="">
+						<mat-form-field class="filler">
 							<mat-label>Suis</mat-label>
 							<mat-select #selectedSuis placeholder="Suis" formControlName="suis">
 								<mat-option *ngFor="let suis of switches" [value]="suis.id">
@@ -53,7 +53,7 @@
 							</mat-select>
 						</mat-form-field>
 
-						<mat-form-field class="">
+						<mat-form-field class="filler">
 							<mat-label>Action</mat-label>
 							<mat-select placeholder="Action" formControlName="action">
 								<mat-option *ngFor="let action of currentSuis(selectedSuis.value)" [value]="action.id">

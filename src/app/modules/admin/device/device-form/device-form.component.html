@@ -1,4 +1,4 @@
-<header class="box">
+<header class="row jc-space-between">
 	<h2>Device</h2>
 
 	<button mat-mini-fab color="primary" (click)="back()">
@@ -7,88 +7,87 @@
 </header>
 <section>
 	<form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
-		<mat-card class="shipping-card">
+		<mat-card class="box-1">
 			<mat-card-header>
 				<mat-card-title>{{title}}</mat-card-title>
 			</mat-card-header>
 			<mat-card-content>
-				<div class="box">
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Name</mat-label>
-							<input matInput placeholder="Name" formControlName="name">
-						</mat-form-field>
-					</div>
+
+				<!-- Name -->
+				<div class="row">
+					<mat-form-field class="filler">
+						<mat-label>Name</mat-label>
+						<input matInput placeholder="Name" formControlName="name">
+					</mat-form-field>
 				</div>
 
-				<div class="box">
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Type</mat-label>
-							<mat-select placeholder="Type" formControlName="type">
-								<mat-option *ngFor="let state of states" [value]="state.type">
-									{{ state.name }}
-								</mat-option>
-							</mat-select>
-							<mat-error *ngIf="deviceForm.controls['type'].hasError('required')">
-								State is <strong>required</strong>
-							</mat-error>
-						</mat-form-field>
-					</div>
+				<!-- Type -->
+				<div class="row">
+					<mat-form-field class="filler">
+						<mat-label>Type</mat-label>
+						<mat-select placeholder="Type" formControlName="type">
+							<mat-option *ngFor="let state of states" [value]="state.type">
+								{{ state.name }}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="deviceForm.controls['type'].hasError('required')">
+							State is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
 				</div>
 
-				<div class="box">
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Mqtt Topic</mat-label>
-							<input matInput placeholder="Mqtt Topic" formControlName="topic">
-						</mat-form-field>
-					</div>
+				<!-- Mqtt Topic -->
+				<div class="row">
+					<mat-form-field class="filler">
+						<mat-label>Mqtt Topic</mat-label>
+						<input matInput placeholder="Mqtt Topic" formControlName="topic">
+					</mat-form-field>
 				</div>
 
-				<div class="box">
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Remark</mat-label>
-							<input matInput placeholder="Remark" formControlName="remark">
-						</mat-form-field>
-					</div>
+				<!-- Remark -->
+				<div class="row">
+					<mat-form-field class="filler">
+						<mat-label>Remark</mat-label>
+						<input matInput placeholder="Remark" formControlName="remark">
+					</mat-form-field>
 				</div>
 
-				<div class="box" [ngClass]="{'mobile': isHandset}">
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Suis</mat-label>
-							<mat-select #selectedSuis placeholder="Suis" formControlName="suis">
-								<mat-option *ngFor="let suis of switches" [value]="suis.id">
-									{{ suis.name }}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-					<div class="box-item">
-						<mat-form-field class="full-width">
-							<mat-label>Action</mat-label>
-							<mat-select placeholder="Action" formControlName="action">
-								<mat-option *ngFor="let action of currentSuis(selectedSuis.value)" [value]="action.id">
-									{{ action.key}} - {{action.value}}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-					<div class="box-item">
-						<button mat-mini-fab (click)="onAdd()" type="button"
-							[disabled]="!deviceForm.get('suis')?.valid || !deviceForm.get('action')?.valid">
-							<mat-icon>add</mat-icon>
-						</button>
+				<div class="box gap1" [ngClass]="{'mobile': isHandset}">
+
+					<!-- Suis -->
+					<mat-form-field class="filler">
+						<mat-label>Suis</mat-label>
+						<mat-select #selectedSuis placeholder="Suis" formControlName="suis">
+							<mat-option *ngFor="let suis of switches" [value]="suis.id">
+								{{ suis.name }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<!-- Action -->
+					<mat-form-field class="filler">
+						<mat-label>Action</mat-label>
+						<mat-select placeholder="Action" formControlName="action">
+							<mat-option *ngFor="let action of currentSuis(selectedSuis.value)" [value]="action.id">
+								{{ action.key}} - {{action.value}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					
+					<!-- Add button -->
+					<div class="p-top-8">
+					<button mat-mini-fab (click)="onAdd()" type="button"
+						[disabled]="!deviceForm.get('suis')?.valid || !deviceForm.get('action')?.valid">
+						<mat-icon>add</mat-icon>
+					</button>
 					</div>
 				</div>
 				<div class="box">
-					<mat-card class="box-item">
+					<mat-card class="filler">
 						<mat-list role="list">
 							<div *ngFor="let item of selectedActions">
 								<mat-list-item role="listitem">
-									<div class="item row gap align-items-center">
+									<div class="row ai-center jc-space-between">
 										<div>
 											{{getSuis(item.key)?.name}} - {{getAction(item.value)?.key}} -
 											{{getAction(item.value)?.value}}
@@ -106,9 +105,9 @@
 					</mat-card>
 				</div>
 			</mat-card-content>
-			<mat-card-actions class="action">
-				<button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">Submit</button>
+			<mat-card-actions class="row jc-end gap1">
 				<button mat-raised-button color="accent" type="button" (click)="back()">Cancel</button>
+				<button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">Submit</button>
 			</mat-card-actions>
 		</mat-card>
 	</form>
