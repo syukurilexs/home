@@ -1,5 +1,7 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { SceneService } from 'src/app/services/scene.service';
 import { SceneDto } from 'src/app/utils/types/scene-dto.type';
 import { Scene } from 'src/app/utils/types/scene.type';
@@ -15,7 +17,23 @@ export class ListComponent {
   listInput: { name: string; id: number }[] = [];
   info!: Scene;
 
-  constructor(private router: Router, private sceneService: SceneService) {
+  destroyed = new Subject<void>();
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay(),
+      takeUntil(this.destroyed)
+    );
+
+  isHandset = false;
+  constructor(private router: Router, private sceneService: SceneService,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.isHandset$.subscribe((x) => {
+      this.isHandset = x;
+    });
+
     this.getAll();
   }
 

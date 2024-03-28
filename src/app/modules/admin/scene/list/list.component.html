@@ -6,7 +6,7 @@
 			<mat-icon>add</mat-icon>
 		</button>
 	</header>
-	<div class="content row gap">
+	<div class="row gap" [ngClass]="{'mobile': isHandset}">
 		<section>
 			<app-comp-list-edit-delete [list]="scenes" (onEdit)="onClickedEdit($event)"
 				(onDelete)="onClickedDelete($event)" (onInfo)="onClickedInfo($event)"></app-comp-list-edit-delete>
