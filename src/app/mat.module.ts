@@ -16,10 +16,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs'
 
 const mat = [
-  MatButtonModule,
-  MatListModule,
   MatToolbarModule,
   MatButtonModule,
   MatSidenavModule,
@@ -36,10 +35,11 @@ const mat = [
   MatSlideToggleModule,
   MatCheckboxModule,
   MatRippleModule,
+  MatTabsModule
 ];
 
 @NgModule({
   imports: mat,
   exports: mat,
 })
-export class MatModule {}
+export class MatModule { }

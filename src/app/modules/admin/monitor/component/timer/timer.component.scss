@@ -1,0 +1,16 @@
+.box {
+    margin: 16px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.first-row {
+    background-color: #ebe7e7bb;
+    padding: 8px;
+}
+
+.first-row div {
+    height: 100%;
+}

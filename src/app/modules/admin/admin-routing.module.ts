@@ -32,6 +32,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./timer/timer.module').then((m) => m.TimerModule),
       },
+      {
+        path: 'monitor',
+        loadChildren: () =>
+          import('./monitor/monitor.module').then((m) => m.MonitorModule)
+      }
     ],
   },
 ];
@@ -40,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
