@@ -1,34 +1,39 @@
-<mat-card *ngIf="device">
+@if(device) {
+
+<mat-card>
 	<mat-card-content>
-		<ng-container
-			*ngIf="device.type === DeviceType.Switch then suis; else lainlain">
-		</ng-container>
+		@if(device.type === DeviceType.Switch) {
+		<div class="content">
+			<span>Name </span>
+			<span>: {{device.name}}</span>
 
-		<ng-template #suis>
-			<div class="content" >
-				<span>Name </span>
-				<span>: {{device.name}}</span>
+			<span>Topic</span>
+			<span>: {{device.topic}}</span>
 
-				<span>Topic</span>
-				<span>: {{device.topic}}</span>
+			<span>Remark</span>
+			<span>: {{device.remark}}</span>
+		</div>
+		} @else() {
+		<div class="content">
+			<span>Name </span>
+			<span>: {{device.name}}</span>
 
-				<span>Remark</span>
-				<span>: {{device.remark}}</span>
-			</div>
-		</ng-template>
+			<span>Topic</span>
+			<span>: {{device.topic}}</span>
 
-		<ng-template #lainlain>
-			<div class="content" >
-				<span>Name </span>
-				<span>: {{device.name}}</span>
-
-				<span>Topic</span>
-				<span>: {{device.topic}}</span>
-				
-				<span>Remark</span>
-				<span>: {{device.remark}}</span>
-			</div>
-		</ng-template>
-
+			<span>Remark</span>
+			<span>: {{device.remark}}</span>
+		</div>
+		<h4>Attached switches</h4>
+		@for(selectedAction of device.selectedAction; track selectedAction) {
+		<div>
+			{{selectedAction.action.device.name}}
+			{{selectedAction.action.value}}
+		</div>
+		} @empty() {
+		No switch
+		}
+		}
 	</mat-card-content>
 </mat-card>
+}
