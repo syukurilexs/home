@@ -68,10 +68,13 @@ export class FormComponent {
       this.deviceId = param['deviceId'];
       this.timerId = param['timerId'];
 
-      this.updateForm();
+      if (this.deviceId != undefined && this.timerId != undefined) {
 
-      this.submitButton = 'Update';
-      this.isSubmit = false;
+        this.updateForm();
+
+        this.submitButton = 'Update';
+        this.isSubmit = false;
+      }
     });
   }
 
