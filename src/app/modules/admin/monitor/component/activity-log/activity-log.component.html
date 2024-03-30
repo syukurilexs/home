@@ -14,7 +14,7 @@
 <div class="container">
     @for(item of data; track item) {
     <div>
-        <b>{{item.createdAt | date}}</b>
+        <b>{{item.createdAt | date:'short'}}</b>
     </div>
     <div>
         {{item.message}}
