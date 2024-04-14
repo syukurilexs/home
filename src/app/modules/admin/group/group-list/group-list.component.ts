@@ -1,8 +1,8 @@
 import { GroupService } from './../../../../services/group.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Group } from 'src/app/utils/types/group.type';
-import { Device } from 'src/app/utils/types/device.type';
+import { GroupType } from 'src/app/types/group.type';
+import { DeviceOld } from 'src/app/types/device-old.type';
 
 @Component({
   selector: 'app-group-list',
@@ -10,8 +10,8 @@ import { Device } from 'src/app/utils/types/device.type';
   styleUrls: ['./group-list.component.scss'],
 })
 export class GroupListComponent {
-  groups: Group[] = [];
-  devices: Device[] = [];
+  groups: GroupType[] = [];
+  devices: DeviceOld[] = [];
 
   constructor(private router: Router, private groupService: GroupService) {
     this.getAll();

@@ -1,12 +1,19 @@
-<div class="row jc-space-between">
+<!-- Main button to select devices -->
+
+<div class="row jc-space-between ai-center">
 	<h2>Details</h2>
 
 	<button mat-mini-fab color="primary" (click)="onAddDevice()">
 		<mat-icon>add</mat-icon>
 	</button>
 </div>
+
+
+<!-- List and detail of devices -->
+
 <div class="gap" [ngClass]="isHandset ? 'column' : 'row'">
 	<app-comp-list-edit-delete [list]="devices" (onInfo)="onClickedInfo($event)" (onEdit)="onClickedEdit($event)"
 		(onDelete)="onClickedDelete($event)"></app-comp-list-edit-delete>
+
 	<app-device-info [device]="device"></app-device-info>
 </div>

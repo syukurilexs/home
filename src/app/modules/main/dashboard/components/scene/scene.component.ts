@@ -2,7 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy } from '@angular/core';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { SceneService } from 'src/app/services/scene.service';
-import { Scene } from 'src/app/utils/types/scene.type';
+import { Scene } from 'src/app/types/scene.type';
 
 @Component({
   selector: 'app-scene',

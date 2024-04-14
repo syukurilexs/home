@@ -11,6 +11,7 @@ import { DeviceItemComponent } from './component//device-item/device-item.compon
 import { DeviceFormComponent } from './device-form/device-form.component';
 import { DeviceInfoComponent } from './component/device-info/device-info.component';
 import { DeviceFormSwitchComponent } from './device-form-switch/device-form-switch.component';
+import { DeviceFormContactComponent } from './device-form-contact/device-form-contact.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DeviceFormSwitchComponent } from './device-form-switch/device-form-swit
     DeviceComponent,
     DeviceInfoComponent,
     DeviceFormSwitchComponent,
+    DeviceFormContactComponent
   ],
   imports: [
     CommonModule,

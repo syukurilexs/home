@@ -2,7 +2,7 @@ import { DeviceService } from 'src/app/services/device.service';
 import { GroupService } from './../../../../../services/group.service';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Device } from 'src/app/utils/types/device.type';
+import { DeviceOld } from 'src/app/types/device-old.type';
 import { Location } from '@angular/common';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable, startWith, map, lastValueFrom } from 'rxjs';
@@ -21,9 +21,9 @@ export class GroupFormComponent {
   });
 
   @Input() groupId!: number;
-  devices: Device[] = [];
-  allDevices: Device[] = [];
-  filteredDevices!: Observable<Device[]> | undefined;
+  devices: DeviceOld[] = [];
+  allDevices: DeviceOld[] = [];
+  filteredDevices!: Observable<DeviceOld[]> | undefined;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -83,7 +83,7 @@ export class GroupFormComponent {
   }
 
   getAll() {
-    this.deviceService.getAll().subscribe(async (data) => {
+    this.deviceService.getAll<DeviceOld[]>().subscribe(async (data) => {
       this.allDevices = data;
 
       if (this.groupId) {
@@ -92,7 +92,7 @@ export class GroupFormComponent {
 
       this.filteredDevices = this.form.get('devices')?.valueChanges.pipe(
         startWith(null),
-        map((deviceEvent: Device | null) => {
+        map((deviceEvent: DeviceOld | null) => {
           if (deviceEvent === null) {
             return this.allDevices;
           } else {
@@ -116,7 +116,7 @@ export class GroupFormComponent {
     this.location.back();
   }
 
-  remove(device: Device) {
+  remove(device: DeviceOld) {
     this.devices = this.devices.filter((x) => {
       if (x.id === device.id) {
         this.allDevices.push(device);

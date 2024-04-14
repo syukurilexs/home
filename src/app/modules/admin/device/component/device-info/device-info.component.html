@@ -3,36 +3,64 @@
 <mat-card>
 	<mat-card-content>
 		@if(device.type === DeviceType.Switch) {
-		<div class="content">
-			<span>Name </span>
-			<span>: {{device.name}}</span>
+			<!-- Switch -->
+			<div class="content">
+				<span>Name </span>
+				<span>: {{device.name}}</span>
 
-			<span>Topic</span>
-			<span>: {{device.topic}}</span>
+				<span>Topic</span>
+				<span>: {{device.topic}}</span>
 
-			<span>Remark</span>
-			<span>: {{device.remark}}</span>
-		</div>
+				<span>Remark</span>
+				<span>: {{device.remark}}</span>
+
+			</div>
+				<!-- Display action -->
+				<h3>Switch Action</h3>
+				<div class="content">
+					@for (item of $any(device).action; track item) {
+						<span>{{item.key}}</span>
+						<span>{{item.value}}</span>
+					}
+				</div>
+		} @else if(device.type === DeviceType.Contact) {
+			<!-- Contact -->
+			<div class="content">
+				<span>Name </span>
+				<span>: {{device.name}}</span>
+
+				<span>Topic</span>
+				<span>: {{device.topic}}</span>
+
+				<span>Remark</span>
+				<span>: {{device.remark}}</span>
+
+				<span>Key</span>
+				<span>: {{$any(device).key}}</span>
+			</div>
 		} @else() {
-		<div class="content">
-			<span>Name </span>
-			<span>: {{device.name}}</span>
+			<div class="content">
+				<span>Name </span>
+				<span>: {{device.name}}</span>
 
-			<span>Topic</span>
-			<span>: {{device.topic}}</span>
+				<span>Topic</span>
+				<span>: {{device.topic}}</span>
 
-			<span>Remark</span>
-			<span>: {{device.remark}}</span>
-		</div>
-		<h4>Attached switches</h4>
-		@for(selectedAction of device.selectedAction; track selectedAction) {
-		<div>
-			{{selectedAction.action.device.name}}
-			{{selectedAction.action.value}}
-		</div>
-		} @empty() {
-		No switch
-		}
+				<span>Remark</span>
+				<span>: {{device.remark}}</span>
+			</div>
+			<h4>Attached switches</h4>
+			@for(selectedAction of $any(device).selectedAction; track selectedAction) {
+				<div>
+					{{selectedAction.name}}
+					{{selectedAction.key}}
+					{{selectedAction.value}}
+				</div>
+			} @empty() {
+				<div>
+					No switch
+				</div>
+			}
 		}
 	</mat-card-content>
 </mat-card>

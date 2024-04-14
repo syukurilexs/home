@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
+import { DeviceE } from 'src/app/enums/device-type.enum';
 
 @Component({
   selector: 'app-device-item',
@@ -12,10 +12,10 @@ import { DeviceType } from 'src/app/utils/enums/device-type.enum';
   styleUrls: ['./device-item.component.scss'],
 })
 export class DeviceItemComponent {
-  @Input() type!: DeviceType;
+  @Input() type!: DeviceE;
   @Input() active: boolean = false;
 
-  @Output() onClicked = new EventEmitter<DeviceType>();
+  @Output() onClicked = new EventEmitter<DeviceE>();
 
   typeText: string = 'Lights';
   icon: string = 'light.svg';
@@ -23,12 +23,15 @@ export class DeviceItemComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if (this.type && this.type === DeviceType.Fan) {
+    if (this.type && this.type === DeviceE.Fan) {
       this.typeText = 'Fans';
       this.icon = 'fan.svg';
-    } else if (this.type && this.type === DeviceType.Switch) {
+    } else if (this.type && this.type === DeviceE.Switch) {
       this.typeText = 'Switch';
       this.icon = 'switch.svg';
+    } else if (this.type && this.type === DeviceE.Contact) {
+      this.typeText = 'Contact'
+      this.icon = 'switch.svg'
     }
   }
 

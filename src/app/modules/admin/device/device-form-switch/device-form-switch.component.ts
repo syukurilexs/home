@@ -3,10 +3,12 @@ import { Location } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
-import { Action } from 'src/app/utils/types/device.type';
+import { DeviceE } from 'src/app/enums/device-type.enum';
+import { Action, DeviceOld } from 'src/app/types/device-old.type';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
+import { SuisType } from 'src/app/types/suis.type';
+import { ActionType } from 'src/app/types/action.type';
 
 @Component({
   selector: 'app-device-form-switch',
@@ -15,8 +17,7 @@ import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 })
 export class DeviceFormSwitchComponent implements OnInit {
   deviceForm = this.fb.group({
-    name: [null, Validators.required],
-    type: [null, Validators.required],
+    name: ['', Validators.required],
     topic: ['', Validators.required],
     remark: [''],
     key: [null, Validators.required],
@@ -25,15 +26,15 @@ export class DeviceFormSwitchComponent implements OnInit {
 
   hasUnitNumber = false;
   id: number = -1;
-  title = 'Add device';
+  title = 'Add switch';
 
   states = [
-    { name: 'Lampu', type: DeviceType.Light },
-    { name: 'Kipas', type: DeviceType.Fan },
-    { name: 'Suis', type: DeviceType.Switch },
+    { name: 'Lampu', type: DeviceE.Light },
+    { name: 'Kipas', type: DeviceE.Fan },
+    { name: 'Suis', type: DeviceE.Switch },
   ];
 
-  actions: Action[] = [];
+  actions: ActionType[] = [];
 
   destroyed = new Subject<void>();
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -58,6 +59,10 @@ export class DeviceFormSwitchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRouteParam();
+  }
+
+  getRouteParam() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.get('id') !== null) {
         this.id = (params.get('id') as any) || -1;
@@ -67,12 +72,12 @@ export class DeviceFormSwitchComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const newSuis = {
-      type: this.deviceForm.get('type')?.value,
-      name: this.deviceForm.get('name')?.value,
-      topic: this.deviceForm.get('topic')?.value,
+    const newSuis: SuisType = {
+      type: DeviceE.Switch,
+      name: this.deviceForm.get('name')?.value || '',
+      topic: this.deviceForm.get('topic')?.value || '',
+      remark: this.deviceForm.get('remark')?.value || '',
       action: this.actions,
-      remark: this.deviceForm.get('remark')?.value,
     };
 
     if (this.id > 0) {
@@ -96,17 +101,21 @@ export class DeviceFormSwitchComponent implements OnInit {
   }
 
   updateForm() {
-    this.title = 'Update Device';
-    this.deviceService.getById(this.id).subscribe((device) => {
-      this.deviceForm.controls['name'].setValue(device.name as any);
-      this.deviceForm.controls['type'].setValue(device.type as any);
-      this.deviceForm.controls['topic'].setValue(device.topic as any);
-      this.deviceForm.controls['remark'].setValue(device.remark as any);
+    this.title = 'Update Switch';
 
-      this.deviceForm.controls['type'].disable();
+    this.deviceService.getById<SuisType>(this.id).subscribe((device) => {
+
+      // Set value to common form field
+      this.deviceForm.controls['name'].setValue(device.name );
+      this.deviceForm.controls['topic'].setValue(device.topic );
+      this.deviceForm.controls['remark'].setValue(device.remark );
+
 
       if (device.action) {
+        // Assign action of switch from server to local action variable
         this.actions = device.action;
+
+        // Just simply pick first item and assign to form field
         this.deviceForm.controls['key'].setValue(device.action[0].key as any);
         this.deviceForm.controls['value'].setValue(
           device.action[0].value as any
@@ -126,7 +135,7 @@ export class DeviceFormSwitchComponent implements OnInit {
     });
   }
 
-  onDelete(action: Action) {
+  onDelete(action: ActionType) {
     const index = this.actions.indexOf(action);
     this.actions.splice(index, 1);
   }

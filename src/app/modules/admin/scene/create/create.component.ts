@@ -1,14 +1,14 @@
 import { SceneService } from 'src/app/services/scene.service';
-import { SceneData } from 'src/app/utils/types/scene-dto.type';
+import { SceneData } from 'src/app/types/scene-dto.type';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
-import { Action, Device } from 'src/app/utils/types/device.type';
+import { DeviceE } from 'src/app/enums/device-type.enum';
+import { Action, DeviceOld } from 'src/app/types/device-old.type';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
-import { State } from 'src/app/utils/enums/state.enum';
+import { StateE } from 'src/app/enums/state.enum';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 type SelectedSuisAction = { deviceId: number, actionId: number };
@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit {
     action: [null]
   });
 
-  devices: Device[] = [];
+  devices: DeviceOld[] = [];
   selectedDevices: SceneData[] = [];
   title = 'Add Scene';
   id$: Observable<number>;
@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit {
       takeUntil(this.destroyed)
     );
   isHandset = false;
-  switches: Device[] = [];
+  switches: DeviceOld[] = [];
   actions: Action[] = [];
   selectedActions: SelectedSuisAction[] = [];
 
@@ -73,13 +73,13 @@ export class CreateComponent implements OnInit {
   }
 
   populateSwitch() {
-    this.deviceService.getAllByType(DeviceType.Switch).subscribe((switches) => {
+    this.deviceService.getAllByType<DeviceOld[]>(DeviceE.Switch).subscribe((switches) => {
       this.switches = switches;
     });
   }
 
   populateAction() {
-    this.deviceService.getAllAction().subscribe((action) => {
+    this.deviceService.getAllAction<Action[]>().subscribe((action) => {
       this.actions = action;
     });
   }
@@ -123,7 +123,7 @@ export class CreateComponent implements OnInit {
       this.selectedDevices = scene.sceneDevice.map((device) => {
         // Create new mapping
         const haha: SceneData = {
-          status: device.state === State.Off ? false : true,
+          status: device.state === StateE.Off ? false : true,
           device: device.device,
         };
 
@@ -144,16 +144,16 @@ export class CreateComponent implements OnInit {
   }
 
   getDeviceList() {
-    this.deviceService.getAll().subscribe((data) => {
+    this.deviceService.getAll<DeviceOld[]>().subscribe((data) => {
       this.devices = data.filter(
         (device) =>
-          device.type === DeviceType.Fan || device.type === DeviceType.Light
+          device.type === DeviceE.Fan || device.type === DeviceE.Light
       );
     });
   }
 
   onAdd() {
-    const device: Device | null = this.form.controls['device'].value;
+    const device: DeviceOld | null = this.form.controls['device'].value;
     if (device) {
       this.selectedDevices.push({ device, status: false });
       const idx = this.devices.findIndex(

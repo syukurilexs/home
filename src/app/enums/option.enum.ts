@@ -1,4 +1,4 @@
-export enum Option {
+export enum OptionE {
   Enable = 'enable',
   Disable = 'disable',
 }

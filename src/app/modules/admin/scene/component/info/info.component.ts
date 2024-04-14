@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Scene } from 'src/app/utils/types/scene.type';
+import { Scene } from 'src/app/types/scene.type';
 
 @Component({
   selector: 'app-info',

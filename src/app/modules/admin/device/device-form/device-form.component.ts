@@ -1,12 +1,14 @@
-import { Action, Device } from 'src/app/utils/types/device.type';
+import { Action, DeviceOld } from 'src/app/types/device-old.type';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { DeviceE } from 'src/app/enums/device-type.enum';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
+import { LightType } from 'src/app/types/light.type';
+import { ActionType } from 'src/app/types/action.type';
 
 @Component({
   selector: 'app-device-form',
@@ -16,7 +18,6 @@ import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 export class DeviceFormComponent implements OnInit {
   deviceForm = this.fb.group({
     name: [null, Validators.required],
-    type: [null, Validators.required],
     topic: ['', Validators.required],
     remark: [''],
     suis: [null],
@@ -25,13 +26,15 @@ export class DeviceFormComponent implements OnInit {
 
   hasUnitNumber = false;
   id: number = -1;
-  title = 'Add device';
-  switches: Device[] = [];
+  title = 'Light';
+  subTitle = 'Add';
+  switches: DeviceOld[] = [];
+  deviceType: DeviceE = DeviceE.Light;
 
   states = [
-    { name: 'Lampu', type: DeviceType.Light },
-    { name: 'Kipas', type: DeviceType.Fan },
-    { name: 'Suis', type: DeviceType.Switch },
+    { name: 'Lampu', type: DeviceE.Light },
+    { name: 'Kipas', type: DeviceE.Fan },
+    { name: 'Suis', type: DeviceE.Switch },
   ];
 
   destroyed = new Subject<void>();
@@ -44,14 +47,16 @@ export class DeviceFormComponent implements OnInit {
     );
   isHandset = false;
 
-  actions: Action[] = [];
-  selectedActions: Action[] = [];
+  actions: ActionType[] = [];
+  selectedActions: ActionType[] = [];
+
 
   constructor(
     private location: Location,
     private fb: FormBuilder,
     private deviceService: DeviceService,
     private route: ActivatedRoute,
+    private router: Router,
     private breakpointObserver: BreakpointObserver
   ) {
     this.isHandset$.subscribe((x) => {
@@ -60,10 +65,41 @@ export class DeviceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSwitches();
+    this.getActions();
+    this.getRouteParam();
+    this.checkType();
+  }
+
+
+  /**
+   * Checking the type to determine this is Fan or Light
+   * @date 4/9/2024 - 8:27:27 AM
+   */
+  checkType() {
+    this.deviceType = /light/.test(this.router.url) ? DeviceE.Light : DeviceE.Fan;
+
+    // Changing title every time component change
+    this.title = this.deviceType === DeviceE.Fan ? 'Fan' : 'light';
+  }
+
+
+  /**
+   * Check if id is exist, if id is available, meaning this page for update
+   * 1) Updating form with data from server
+   * 2) Change subtitle to Update
+   * @date 4/9/2024 - 8:26:37 AM
+   */
+  getRouteParam() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.get('id') !== null) {
         this.id = (params.get('id') as any) || -1;
+
+        // Updating form with information from server
         this.updateForm();
+
+        // Change subtitle
+        this.subTitle = 'Update ';
       }
     });
   }
@@ -71,56 +107,73 @@ export class DeviceFormComponent implements OnInit {
   onSubmit(): void {
     if (this.id > 0) {
       const input = {
-        type: this.deviceForm.get('type')?.value,
-        actions: this.selectedActions.map(x => x.value),
+        type: this.deviceType,
+        actions: this.selectedActions.map(x => x.id),
         name: this.deviceForm.get('name')?.value,
         topic: this.deviceForm.get('topic')?.value,
         remark: this.deviceForm.get('remark')?.value,
       };
+
       this.deviceService
         .updateById(this.id, input)
         .subscribe((data) => {
           alert('Thanks!');
         });
     } else {
-      this.deviceService.create(this.deviceForm.value).subscribe((data) => {
+
+      const input = {
+        type: this.deviceType,
+        actions: this.selectedActions.map(x => x.value),
+        name: this.deviceForm.get('name')?.value,
+        topic: this.deviceForm.get('topic')?.value,
+        remark: this.deviceForm.get('remark')?.value,
+      };
+
+      this.deviceService.create(input).subscribe((data) => {
         alert('Thanks!');
       });
     }
   }
 
   updateForm() {
-    this.title = 'Update Device';
-    this.deviceService.getById(this.id).subscribe((device) => {
+    this.deviceService.getById<LightType>(this.id).subscribe((device) => {
+      // Set value to common form field
       this.deviceForm.controls['name'].setValue(device.name as any);
-      this.deviceForm.controls['type'].setValue(device.type as any);
       this.deviceForm.controls['topic'].setValue(device.topic);
       this.deviceForm.controls['remark'].setValue(device.remark);
-      this.deviceForm.controls['type'].disable();
 
-      device.selectedAction.forEach((selectedAction) => {
-        this.deviceForm.controls['suis'].setValue(
-          selectedAction.action.device.id as any
-        );
-
-        this.deviceForm.controls['action'].setValue(
-          selectedAction.action.id as any
-        );
-      });
-
+      // Added selectedAction from server to selectedAction in the component
       device.selectedAction.forEach(x => {
         this.selectedActions.push({
-          value: Number(x.action.id).toString(),
-          key: Number(x.action.device.id).toString()
+          id: x.id,
+          value: x.key,
+          key: x.value,
+          name: x.name
         })
       })
     });
+  }
 
-    this.deviceService.getAllByType(DeviceType.Switch).subscribe((switches) => {
+
+  /**
+   * Retrieve all switches from server.
+   * Will be used for action selection
+   * @date 4/9/2024 - 10:08:20 AM
+   */
+  getSwitches() {
+    this.deviceService.getAllByType<DeviceOld[]>(DeviceE.Switch).subscribe((switches) => {
       this.switches = switches;
     });
+  }
 
-    this.deviceService.getAllAction().subscribe((action) => {
+
+  /**
+   * Retrieve all actions from server
+   * Will be used for action selection
+   * @date 4/9/2024 - 10:08:51 AM
+   */
+  getActions() {
+    this.deviceService.getAllAction<ActionType[]>().subscribe((action) => {
       this.actions = action;
     });
   }
@@ -139,22 +192,22 @@ export class DeviceFormComponent implements OnInit {
   }
 
   onAdd() {
-    this.selectedActions.push({
-      key: this.deviceForm.get('suis')?.value || '',
-      value: this.deviceForm.get('action')?.value || '',
-    });
+    // Get id of action from form field action
+    const id = this.deviceForm.get('action')?.value;
+
+    // Get action in action list base on found id
+    // the push to selectedAction
+    if (id) {
+      const action = this.actions.find(x => x.id === id)
+
+      if (action) {
+        this.selectedActions.push(action);
+      }
+    }
   }
 
-  onDelete(action: Action) {
+  onDelete(action: ActionType) {
     const index = this.selectedActions.indexOf(action);
     this.selectedActions.splice(index, 1);
-  }
-
-  getSuis(id: string) {
-    return this.switches.find((x) => x.id === +id);
-  }
-
-  getAction(id: string) {
-    return this.actions.find((x) => x.id === +id);
   }
 }

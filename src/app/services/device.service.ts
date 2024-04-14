@@ -1,11 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { catchError, map, Observable, throwError } from 'rxjs';
-import { DeviceType } from '../utils/enums/device-type.enum';
-import { State } from '../utils/enums/state.enum';
-import { Action, Device } from '../utils/types/device.type';
+import { catchError, Observable, throwError } from 'rxjs';
+import { DeviceE } from '../enums/device-type.enum';
+import { StateE } from '../enums/state.enum';
+import { Action, DeviceOld } from '../types/device-old.type';
 import { environment } from '../../environments/environment';
+import { ContactType } from '../types/contact.type';
+import { map } from 'rxjs/operators'
+import { SuisType } from '../types/suis.type';
 
 @Injectable({
   providedIn: 'root',
@@ -13,36 +16,42 @@ import { environment } from '../../environments/environment';
 export class DeviceService {
   url = environment.apiUrl;
 
-  constructor(private http: HttpClient, private socket: Socket) {}
+  constructor(private http: HttpClient, private socket: Socket) { }
 
-  getAll() {
+  getAll<T>() {
     return this.http
-      .get<Device[]>(this.url + '/device')
+      .get<T>(this.url + '/device')
       .pipe(catchError(this.handleError));
   }
 
-  getAllByType(type: DeviceType) {
+  getAllByType<T>(type: DeviceE) {
     return this.http
-      .get<Device[]>(this.url + '/device?type=' + DeviceType[type])
+      .get<T>(this.url + '/device?type=' + DeviceE[type])
       .pipe(catchError(this.handleError));
   }
 
-  getAllAction() {
+  getAllAction<T>() {
     return this.http
-    .get<Action[]>(this.url + '/device/action')
-    .pipe(catchError(this.handleError))
+      .get<T>(this.url + '/device/action')
+      .pipe(catchError(this.handleError))
   }
 
-  create(value: Partial<{ name: null; type: null }>) {
+  create(value: Partial<{ name: any; type: any}>) {
     return this.http
       .post(this.url + '/device', value)
       .pipe(catchError(this.handleError));
   }
 
-  createSwitch(value: Partial<{ name: null; type: null }>) {
+  createSwitch(value: SuisType) {
     return this.http
       .post(this.url + '/device/switch', value)
       .pipe(catchError(this.handleError));
+  }
+
+  createContact(value: Partial<{ name: any; type: any }>) {
+    return this.http
+      .post(this.url + '/device/contactsensor', value)
+      .pipe(catchError(this.handleError))
   }
 
   deleteById(id: number) {
@@ -51,10 +60,12 @@ export class DeviceService {
       .pipe(catchError(this.handleError));
   }
 
-  getById(id: DeviceType) {
+  getById<T>(id: DeviceE) {
     return this.http
-      .get<Device>(this.url + '/device/' + id)
-      .pipe(catchError(this.handleError));
+      .get<T>(this.url + '/device/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   updateById(id: number, value: any) {
@@ -63,19 +74,25 @@ export class DeviceService {
       .pipe(catchError(this.handleError));
   }
 
-  updateSwitchById(id: number, value: Partial<{ name: null; type: null }>) {
+  updateSwitchById(id: number, value: SuisType) {
     return this.http
       .patch(this.url + '/device/switch/' + id, value)
       .pipe(catchError(this.handleError));
   }
 
-  updateState(id: number, state: State) {
+  updateContactById(id: number, value: Partial<{ name: any; type: any }>) {
+    return this.http
+      .patch(this.url + '/device/contactsensor' + id, value)
+      .pipe(catchError(this.handleError))
+  }
+
+  updateState(id: number, state: StateE) {
     return this.http
       .patch(this.url + '/device/' + id + '/state', { state })
       .pipe(catchError(this.handleError));
   }
 
-  fromDeviceEvent(): Observable<Device> {
+  fromDeviceEvent(): Observable<DeviceOld> {
     return this.socket.fromEvent('state.change');
   }
 

@@ -1,4 +1,4 @@
-import { Action, Device } from './device.type';
+import { Action, DeviceOld } from './device-old.type';
 
 export type SceneDto = {
   name: string;
@@ -8,5 +8,5 @@ export type SceneDto = {
 
 export type SceneData = {
   status: boolean;
-  device: Device;
+  device: DeviceOld;
 };

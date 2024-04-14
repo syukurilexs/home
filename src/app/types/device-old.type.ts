@@ -1,12 +1,12 @@
-import { DeviceType } from '../enums/device-type.enum';
-import { State } from '../enums/state.enum';
+import { DeviceE } from '../enums/device-type.enum';
+import { StateE } from '../enums/state.enum';
 
-export type Device = {
+export type DeviceOld = {
   remark: string;
   id: number;
   name: string;
-  type: DeviceType;
-  state: State;
+  type: DeviceE;
+  state: StateE;
   topic: string;
   createdAt: string;
   updatedAt: string;
@@ -41,7 +41,7 @@ export type Action = {
   id?: number;
   key: string;
   value: string;
-  device?: Device;
+  device?: DeviceOld;
 };
 
 export type Timer = {

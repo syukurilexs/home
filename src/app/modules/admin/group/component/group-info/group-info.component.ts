@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Device } from 'src/app/utils/types/device.type';
+import { DeviceOld } from 'src/app/types/device-old.type';
 
 @Component({
   selector: 'app-group-info',
@@ -7,6 +7,6 @@ import { Device } from 'src/app/utils/types/device.type';
   styleUrls: ['./group-info.component.scss']
 })
 export class GroupInfoComponent {
-  @Input() devices: Device[] = [];
+  @Input() devices: DeviceOld[] = [];
 
 }

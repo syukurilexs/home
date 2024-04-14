@@ -1,5 +1,5 @@
-import { State } from '../enums/state.enum';
-import { Action, Device } from './device.type';
+import { StateE } from '../enums/state.enum';
+import { Action, DeviceOld } from './device-old.type';
 
 export type Scene = {
   id: number;
@@ -13,10 +13,10 @@ export type Scene = {
 export type SceneDevice = {
   sceneId: number;
   deviceId: number;
-  state: State;
+  state: StateE;
   createdAt: string;
   updatedAt: string;
-  device: Device;
+  device: DeviceOld;
 };
 
 export interface SceneAction {

@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Device } from 'src/app/utils/types/device.type';
-import { SceneData } from 'src/app/utils/types/scene-dto.type';
+import { SceneData } from 'src/app/types/scene-dto.type';
 
 @Component({
   selector: 'app-scene-item',

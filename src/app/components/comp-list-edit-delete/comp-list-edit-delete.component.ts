@@ -10,20 +10,20 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./comp-list-edit-delete.component.scss']
 })
 export class CompListEditDeleteComponent {
-  @Input() list: {name: string, id: number}[] = [];
+  @Input() list: Partial<{name: string, id: number}>[] = [];
   @Output() onDelete = new EventEmitter<number>();
   @Output() onEdit= new EventEmitter<number>();
   @Output() onInfo = new EventEmitter<number>();
 
-  onClickedDelete(id: number) {
+  onClickedDelete(id: number | undefined) {
     this.onDelete.emit(id);
   }
 
-  onClickedEdit(id: number) {
+  onClickedEdit(id: number | undefined) {
     this.onEdit.emit(id);
   }
 
-  onClickedInfo(id: number) {
+  onClickedInfo(id: number | undefined) {
     this.onInfo.emit(id);
   }
 }

@@ -2,10 +2,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceService } from 'src/app/services/device.service';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
-import { State } from 'src/app/utils/enums/state.enum';
-import { Device } from 'src/app/utils/types/device.type';
-import { Group } from 'src/app/utils/types/group.type';
+import { DeviceE } from 'src/app/enums/device-type.enum';
+import { StateE } from 'src/app/enums/state.enum';
+import { DeviceOld } from 'src/app/types/device-old.type';
+import { GroupType } from 'src/app/types/group.type';
 
 @Component({
   selector: 'app-group-item',
@@ -13,7 +13,7 @@ import { Group } from 'src/app/utils/types/group.type';
   styleUrls: ['./group-item.component.scss'],
 })
 export class GroupItemComponent {
-  @Input() group!: Group;
+  @Input() group!: GroupType;
 
   constructor(
     iconRegistry: MatIconRegistry,
@@ -31,16 +31,16 @@ export class GroupItemComponent {
     );
   }
 
-  convertIconString(type: DeviceType) {
-    if (type === DeviceType.Fan) {
+  convertIconString(type: DeviceE) {
+    if (type === DeviceE.Fan) {
       return 'fan';
     } else {
       return 'light';
     }
   }
 
-  onClicked(device: Device) {
-    const state = device.state === State.Off ? State.On : State.Off;
+  onClicked(device: DeviceOld) {
+    const state = device.state === StateE.Off ? StateE.On : StateE.Off;
     this.deviceService.updateState(device.id, state).subscribe((data) => {});
 
     this.group.devices.map((x) => {
@@ -51,11 +51,11 @@ export class GroupItemComponent {
     });
   }
 
-  isStateOn(state: State) {
-    return state === State.On;
+  isStateOn(state: StateE) {
+    return state === StateE.On;
   }
 
-  statusLabel(state: State) {
-    return state === State.Off ? 'Off' : 'On';
+  statusLabel(state: StateE) {
+    return state === StateE.Off ? 'Off' : 'On';
   }
 }

@@ -4,6 +4,7 @@ import { DeviceFormComponent } from './device-form/device-form.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DeviceComponent } from './device.component';
+import { DeviceFormContactComponent } from './device-form-contact/device-form-contact.component';
 
 const routes: Routes = [
   {
@@ -23,20 +24,40 @@ const routes: Routes = [
         component: DeviceListComponent,
       },
       {
-        path: 'add/form',
+        path: 'contact',
+        component: DeviceListComponent,
+      },
+      {
+        path: 'add/light',
         component: DeviceFormComponent,
       },
       {
-        path: 'add/form-switch',
+        path: 'add/fan',
+        component: DeviceFormComponent,
+      },
+      {
+        path: 'add/switch',
         component: DeviceFormSwitchComponent,
       },
       {
-        path: 'edit/form/:id',
+        path: 'add/contact',
+        component: DeviceFormContactComponent,
+      },
+      {
+        path: 'edit/light/:id',
         component: DeviceFormComponent,
       },
       {
-        path: 'edit/form-switch/:id',
+        path: 'edit/fan/:id',
+        component: DeviceFormComponent,
+      },
+      {
+        path: 'edit/switch/:id',
         component: DeviceFormSwitchComponent
+      },
+      {
+        path: 'edit/contact/:id',
+        component: DeviceFormContactComponent
       }
     ],
   },

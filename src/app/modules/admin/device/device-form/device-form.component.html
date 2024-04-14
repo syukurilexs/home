@@ -1,5 +1,5 @@
-<header class="row jc-space-between">
-	<h2>Device</h2>
+<header class="row jc-space-between ai-center">
+	<h2>{{title}}</h2>
 
 	<button mat-mini-fab color="primary" (click)="back()">
 		<mat-icon>arrow_back</mat-icon>
@@ -9,7 +9,7 @@
 	<form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
 		<mat-card class="box-1">
 			<mat-card-header>
-				<mat-card-title>{{title}}</mat-card-title>
+				<mat-card-title>{{subTitle + ' ' + title}}</mat-card-title>
 			</mat-card-header>
 			<mat-card-content>
 
@@ -18,21 +18,6 @@
 					<mat-form-field class="filler">
 						<mat-label>Name</mat-label>
 						<input matInput placeholder="Name" formControlName="name">
-					</mat-form-field>
-				</div>
-
-				<!-- Type -->
-				<div class="row">
-					<mat-form-field class="filler">
-						<mat-label>Type</mat-label>
-						<mat-select placeholder="Type" formControlName="type">
-							<mat-option *ngFor="let state of states" [value]="state.type">
-								{{ state.name }}
-							</mat-option>
-						</mat-select>
-						<mat-error *ngIf="deviceForm.controls['type'].hasError('required')">
-							State is <strong>required</strong>
-						</mat-error>
 					</mat-form-field>
 				</div>
 
@@ -89,8 +74,7 @@
 								<mat-list-item role="listitem">
 									<div class="row ai-center jc-space-between">
 										<div>
-											{{getSuis(item.key)?.name}} - {{getAction(item.value)?.key}} -
-											{{getAction(item.value)?.value}}
+											{{item.name}} - {{item.key}} - {{item.value}}
 										</div>
 										<div class="full-width row jc-end">
 											<button mat-mini-fab (click)="onDelete(item)" type="button">

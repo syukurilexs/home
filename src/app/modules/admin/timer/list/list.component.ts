@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TimerService } from 'src/app/services/timer.service';
-import { Option } from 'src/app/utils/enums/option.enum';
-import { Device, Timer } from 'src/app/utils/types/device.type';
+import { OptionE } from 'src/app/enums/option.enum';
+import { DeviceOld, Timer } from 'src/app/types/device-old.type';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +10,7 @@ import { Device, Timer } from 'src/app/utils/types/device.type';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  devices: Device[] = [];
+  devices: DeviceOld[] = [];
 
   constructor(
     private readonly router: Router,
@@ -60,7 +60,7 @@ export class ListComponent {
         device.timers = device.timers?.map((x) => {
           if (x.id === timer.id) {
             x.option =
-              x.option === Option.Disable ? Option.Enable : Option.Disable;
+              x.option === OptionE.Disable ? OptionE.Enable : OptionE.Disable;
           }
 
           return x;

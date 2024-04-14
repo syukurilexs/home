@@ -1,7 +1,7 @@
-import { SceneDto } from '../utils/types/scene-dto.type';
+import { SceneDto } from '../types/scene-dto.type';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Scene } from '../utils/types/scene.type';
+import { Scene } from '../types/scene.type';
 import { environment } from '../../environments/environment';
 
 @Injectable({

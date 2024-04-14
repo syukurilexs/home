@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { SceneService } from 'src/app/services/scene.service';
-import { SceneDto } from 'src/app/utils/types/scene-dto.type';
-import { Scene } from 'src/app/utils/types/scene.type';
+import { SceneDto } from 'src/app/types/scene-dto.type';
+import { Scene } from 'src/app/types/scene.type';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +12,7 @@ import { Scene } from 'src/app/utils/types/scene.type';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  scenesDto: SceneDto[] = [];
+  scenesDto: Scene[] = [];
   scenes: Scene[] = [];
   listInput: { name: string; id: number }[] = [];
   info!: Scene;

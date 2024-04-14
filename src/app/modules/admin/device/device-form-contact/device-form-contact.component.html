@@ -1,0 +1,48 @@
+<header class="row jc-space-between ai-center">
+    <h2>Contact</h2>
+
+    <button mat-mini-fab color="primary" (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</header>
+<section>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="box-1">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content >
+                <div class="column">
+                    <!-- Name -->
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput type="" placeholder="Name" formControlName="name">
+                    </mat-form-field>
+
+                    <!-- Topic -->
+                    <mat-form-field>
+                        <mat-label>Topic</mat-label>
+                        <input matInput placeholder="Topic" formControlName="topic">
+                    </mat-form-field>
+
+                    <!-- Key -->
+                    <mat-form-field>
+                        <mat-label>Key</mat-label>
+                        <input matInput type="text" placeholder="Key" formControlName="key">
+                    </mat-form-field>
+
+                    <!-- Remark -->
+                    <mat-form-field>
+                        <mat-label>Remark</mat-label>
+                        <input matInput type="text" placeholder="Remark" formControlName="remark">
+                    </mat-form-field>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions class="row jc-end gap1" style="padding: 0px 16px;">
+                <button mat-raised-button color="accent" type="button" (click)="back()">Cancel</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</section>

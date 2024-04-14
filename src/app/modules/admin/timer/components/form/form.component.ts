@@ -4,11 +4,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceService } from 'src/app/services/device.service';
 import { TimerService } from 'src/app/services/timer.service';
-import { DeviceType } from 'src/app/utils/enums/device-type.enum';
-import { Option } from 'src/app/utils/enums/option.enum';
-import { State } from 'src/app/utils/enums/state.enum';
-import { Device } from 'src/app/utils/types/device.type';
-import { CreateTimer } from 'src/app/utils/types/timer.type';
+import { DeviceE } from 'src/app/enums/device-type.enum';
+import { OptionE } from 'src/app/enums/option.enum';
+import { StateE } from 'src/app/enums/state.enum';
+import { DeviceOld } from 'src/app/types/device-old.type';
+import { CreateTimer } from 'src/app/types/timer.type';
+import { Device } from 'src/app/types/device.type';
 
 @Component({
   selector: 'app-form',
@@ -23,7 +24,7 @@ export class FormComponent {
     option: [false, Validators.required],
   });
 
-  devices: Device[] = [];
+  devices: DeviceOld[] = [];
   deviceId: number = -1;
   timerId: number = -1;
   id: number = -1;
@@ -41,10 +42,9 @@ export class FormComponent {
   }
 
   updateForm() {
-    //this.addressForm.controls['device'].setValue()
 
     // Get device to edit
-    this.deviceService.getById(this.deviceId).subscribe((x) => {
+    this.deviceService.getById<DeviceOld>(this.deviceId).subscribe((x) => {
       this.addressForm.controls['device'].setValue(x.id as any);
     });
 
@@ -52,10 +52,10 @@ export class FormComponent {
     this.timerService.getById(this.timerId).subscribe((x) => {
       this.addressForm.controls['selectedTime'].setValue(x.time as any);
       this.addressForm.controls['state'].setValue(
-        x.option === State.On ? true : false
+        x.option === StateE.On ? true : false
       );
       this.addressForm.controls['option'].setValue(
-        x.option === Option.Enable ? true : false
+        x.option === OptionE.Enable ? true : false
       );
     });
   }
@@ -79,9 +79,9 @@ export class FormComponent {
   }
 
   getAllDevice() {
-    this.deviceService.getAll().subscribe((x) => {
+    this.deviceService.getAll<DeviceOld[]>().subscribe((x) => {
       this.devices = x.filter(
-        (y) => y.type === DeviceType.Fan || y.type === DeviceType.Light
+        (y) => y.type === DeviceE.Fan || y.type === DeviceE.Light
       );
     });
   }
@@ -91,8 +91,8 @@ export class FormComponent {
 
     const output: CreateTimer = {
       deviceId: value.device || 0,
-      option: value.option ? Option.Enable : Option.Disable,
-      state: value.state ? State.On : State.Off,
+      option: value.option ? OptionE.Enable : OptionE.Disable,
+      state: value.state ? StateE.On : StateE.Off,
       time: value.selectedTime || '',
     };
 

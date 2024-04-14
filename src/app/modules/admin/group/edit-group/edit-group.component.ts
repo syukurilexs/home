@@ -1,4 +1,4 @@
-import { Group } from 'src/app/utils/types/group.type';
+import { GroupType } from 'src/app/types/group.type';
 import { GroupService } from './../../../../services/group.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
@@ -14,7 +14,7 @@ export class EditGroupComponent {
   title = 'Add Group';
   id!: number;
   id$!: Observable<number>;
-  group!: Group;
+  group!: GroupType;
 
   constructor(
     private location: Location,
