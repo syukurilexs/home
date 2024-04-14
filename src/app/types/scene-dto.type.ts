@@ -1,4 +1,4 @@
-import { Action, DeviceOld } from './device-old.type';
+import { DeviceOld } from './device-old.type';
 
 export type SceneDto = {
   name: string;

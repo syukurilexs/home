@@ -1,6 +1,6 @@
 import { DeviceService } from 'src/app/services/device.service';
 import { Component, OnDestroy } from '@angular/core';
-import { GroupType } from 'src/app/types/group.type';
+import { Group } from 'src/app/types/group.type';
 import { GroupService } from 'src/app/services/group.service';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -11,7 +11,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent implements OnDestroy {
-  groups: GroupType[] = [];
+  groups: Group[] = [];
   destroyed = new Subject<void>();
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)

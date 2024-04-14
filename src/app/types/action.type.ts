@@ -1,4 +1,4 @@
-export type ActionType = {
+export type Action = {
     id?: number;
     value: string;
     key: string;

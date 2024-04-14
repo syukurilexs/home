@@ -5,7 +5,7 @@ import { DeviceE } from 'src/app/enums/device-type.enum';
 import { DeviceService } from 'src/app/services/device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { throwDialogContentAlreadyAttachedError } from '@angular/cdk/dialog';
-import { ContactType } from 'src/app/types/contact.type';
+import { Contact } from 'src/app/types/contact.type';
 
 @Component({
   selector: 'app-device-form-contact',
@@ -62,7 +62,7 @@ export class DeviceFormContactComponent implements OnInit {
   poplulateForm() {
     if (this.id !== -1) {
       // get contact data by id 
-      this.deviceService.getById<ContactType>(this.id).subscribe((contact) => {
+      this.deviceService.getById<Contact>(this.id).subscribe((contact) => {
 
         // Change title accordingly
         this.title = 'Update Contact';

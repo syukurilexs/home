@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TimerService } from 'src/app/services/timer.service';
-import { JobType } from 'src/app/types/job.type';
+import { Job } from 'src/app/types/job.type';
 
 @Component({
   selector: 'app-timer',
@@ -9,7 +9,7 @@ import { JobType } from 'src/app/types/job.type';
 })
 export class TimerComponent {
 
-  jobs: JobType[] = [];
+  jobs: Job[] = [];
 
   constructor(private timerService: TimerService) {
     this.getJobs();

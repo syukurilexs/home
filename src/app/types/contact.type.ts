@@ -1,5 +1,5 @@
-import { CommonDeviceType } from "./common-device.type";
+import { CommonDevice } from "./common-device.type";
 
-export type ContactType = CommonDeviceType & {
+export type Contact = CommonDevice & {
     key: string;
 }

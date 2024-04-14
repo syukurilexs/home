@@ -1,4 +1,4 @@
-import { Action, DeviceOld } from 'src/app/types/device-old.type';
+import { DeviceOld } from 'src/app/types/device-old.type';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -7,8 +7,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { DeviceE } from 'src/app/enums/device-type.enum';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
-import { LightType } from 'src/app/types/light.type';
-import { ActionType } from 'src/app/types/action.type';
+import { Light } from 'src/app/types/light.type';
+import { Action } from 'src/app/types/action.type';
 
 @Component({
   selector: 'app-device-form',
@@ -47,8 +47,8 @@ export class DeviceFormComponent implements OnInit {
     );
   isHandset = false;
 
-  actions: ActionType[] = [];
-  selectedActions: ActionType[] = [];
+  actions: Action[] = [];
+  selectedActions: Action[] = [];
 
 
   constructor(
@@ -136,7 +136,7 @@ export class DeviceFormComponent implements OnInit {
   }
 
   updateForm() {
-    this.deviceService.getById<LightType>(this.id).subscribe((device) => {
+    this.deviceService.getById<Light>(this.id).subscribe((device) => {
       // Set value to common form field
       this.deviceForm.controls['name'].setValue(device.name as any);
       this.deviceForm.controls['topic'].setValue(device.topic);
@@ -173,7 +173,7 @@ export class DeviceFormComponent implements OnInit {
    * @date 4/9/2024 - 10:08:51 AM
    */
   getActions() {
-    this.deviceService.getAllAction<ActionType[]>().subscribe((action) => {
+    this.deviceService.getAllAction<Action[]>().subscribe((action) => {
       this.actions = action;
     });
   }
@@ -206,7 +206,7 @@ export class DeviceFormComponent implements OnInit {
     }
   }
 
-  onDelete(action: ActionType) {
+  onDelete(action: Action) {
     const index = this.selectedActions.indexOf(action);
     this.selectedActions.splice(index, 1);
   }

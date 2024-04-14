@@ -1,4 +1,4 @@
-export type JobType = {
+export type Job = {
     name: string;
     nextrun: string;
     lastrun: string;

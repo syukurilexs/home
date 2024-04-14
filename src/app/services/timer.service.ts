@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CreateTimer } from '../types/timer.type';
 import { DeviceOld, Timer } from '../types/device-old.type';
 import { environment } from '../../environments/environment';
-import { JobType } from '../types/job.type';
+import { Job } from '../types/job.type';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class TimerService {
   constructor(private http: HttpClient) {}
 
   getJobs() {
-    return this.http.get<JobType[]>(this.url + '/timer/jobs');
+    return this.http.get<Job[]>(this.url + '/timer/jobs');
   }
 
   deleteBy(id: number) {

@@ -6,8 +6,8 @@ import { DeviceOld } from 'src/app/types/device-old.type';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { getHandsetEvent } from 'src/app/utils/common';
 import { Subject } from 'rxjs';
-import { LightType } from 'src/app/types/light.type';
-import { SuisType } from 'src/app/types/suis.type';
+import { Light } from 'src/app/types/light.type';
+import { Suis } from 'src/app/types/suis.type';
 import { Device } from 'src/app/types/device.type';
 
 @Component({
@@ -100,9 +100,9 @@ export class DeviceListComponent {
   onClickedInfo(id: number) {
     this.deviceService.getById<Device>(id).subscribe((data) => {
       if (data.type === DeviceE.Light) {
-        this.device = data as LightType;
+        this.device = data as Light;
       } else if (data.type === DeviceE.Switch) {
-        this.device = data as SuisType;
+        this.device = data as Suis;
       } else {
         this.device = data;
       }

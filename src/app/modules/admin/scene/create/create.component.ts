@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
 import { DeviceE } from 'src/app/enums/device-type.enum';
-import { Action, DeviceOld } from 'src/app/types/device-old.type';
+import { ActionOld, DeviceOld } from 'src/app/types/device-old.type';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     );
   isHandset = false;
   switches: DeviceOld[] = [];
-  actions: Action[] = [];
+  actions: ActionOld[] = [];
   selectedActions: SelectedSuisAction[] = [];
 
   constructor(
@@ -79,7 +79,7 @@ export class CreateComponent implements OnInit {
   }
 
   populateAction() {
-    this.deviceService.getAllAction<Action[]>().subscribe((action) => {
+    this.deviceService.getAllAction<ActionOld[]>().subscribe((action) => {
       this.actions = action;
     });
   }

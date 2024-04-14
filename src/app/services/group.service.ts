@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GroupType } from '../types/group.type';
+import { Group } from '../types/group.type';
 import { environment } from '../../environments/environment';
 
 
@@ -13,7 +13,7 @@ export class GroupService {
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get<GroupType[]>(this.url + '/group');
+    return this.http.get<Group[]>(this.url + '/group');
   }
 
   create(value: Partial<{ name: any; devices: any }>) {
@@ -25,7 +25,7 @@ export class GroupService {
   }
 
   getById(id: number) {
-    return this.http.get<GroupType>(this.url + '/group/' + id);
+    return this.http.get<Group>(this.url + '/group/' + id);
   }
 
   updateById(id: number, value: Partial<{name: any, devices: any}>) {

@@ -1,6 +1,6 @@
-import { ActionType } from "./action.type";
-import { CommonDeviceType } from "./common-device.type";
+import { Action } from "./action.type";
+import { CommonDevice } from "./common-device.type";
 
-export type SuisType = CommonDeviceType & {
-    action: ActionType[];
+export type Suis = CommonDevice & {
+    action: Action[];
 }

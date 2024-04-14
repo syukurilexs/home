@@ -1,5 +1,5 @@
-import { ContactType } from "./contact.type";
-import { LightType } from "./light.type";
-import { SuisType } from "./suis.type";
+import { Contact } from "./contact.type";
+import { Light } from "./light.type";
+import { Suis } from "./suis.type";
 
-export type Device = LightType | SuisType | ContactType;
+export type Device = Light | Suis | Contact;

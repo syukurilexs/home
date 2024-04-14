@@ -1,6 +1,6 @@
 import { DeviceE } from "src/app/enums/device-type.enum";
 
-export type CommonDeviceType = {
+export type CommonDevice = {
     // Make optional for id because 
     // when data return from server we need to have id
     // If if want to send data to server we sometime dont nee id

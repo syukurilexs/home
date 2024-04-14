@@ -4,11 +4,9 @@ import { Socket } from 'ngx-socket-io';
 import { catchError, Observable, throwError } from 'rxjs';
 import { DeviceE } from '../enums/device-type.enum';
 import { StateE } from '../enums/state.enum';
-import { Action, DeviceOld } from '../types/device-old.type';
+import { DeviceOld } from '../types/device-old.type';
 import { environment } from '../../environments/environment';
-import { ContactType } from '../types/contact.type';
-import { map } from 'rxjs/operators'
-import { SuisType } from '../types/suis.type';
+import { Suis } from '../types/suis.type';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +40,7 @@ export class DeviceService {
       .pipe(catchError(this.handleError));
   }
 
-  createSwitch(value: SuisType) {
+  createSwitch(value: Suis) {
     return this.http
       .post(this.url + '/device/switch', value)
       .pipe(catchError(this.handleError));
@@ -74,7 +72,7 @@ export class DeviceService {
       .pipe(catchError(this.handleError));
   }
 
-  updateSwitchById(id: number, value: SuisType) {
+  updateSwitchById(id: number, value: Suis) {
     return this.http
       .patch(this.url + '/device/switch/' + id, value)
       .pipe(catchError(this.handleError));

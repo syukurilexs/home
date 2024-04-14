@@ -12,7 +12,7 @@ export type DeviceOld = {
   updatedAt: string;
   suis?: Suis;
   deviceAction: DeviceAction[];
-  action?: Action[];
+  action?: ActionOld[];
   timers?: Timer[];
   selectedAction: SelectedAction[];
 };
@@ -37,7 +37,7 @@ export type DeviceAction = {
   updatedAt: string;
 };
 
-export type Action = {
+export type ActionOld = {
   id?: number;
   key: string;
   value: string;

@@ -4,11 +4,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DeviceE } from 'src/app/enums/device-type.enum';
-import { Action, DeviceOld } from 'src/app/types/device-old.type';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
-import { SuisType } from 'src/app/types/suis.type';
-import { ActionType } from 'src/app/types/action.type';
+import { Suis } from 'src/app/types/suis.type';
+import { Action } from 'src/app/types/action.type';
 
 @Component({
   selector: 'app-device-form-switch',
@@ -34,7 +33,7 @@ export class DeviceFormSwitchComponent implements OnInit {
     { name: 'Suis', type: DeviceE.Switch },
   ];
 
-  actions: ActionType[] = [];
+  actions: Action[] = [];
 
   destroyed = new Subject<void>();
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -72,7 +71,7 @@ export class DeviceFormSwitchComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const newSuis: SuisType = {
+    const newSuis: Suis = {
       type: DeviceE.Switch,
       name: this.deviceForm.get('name')?.value || '',
       topic: this.deviceForm.get('topic')?.value || '',
@@ -103,7 +102,7 @@ export class DeviceFormSwitchComponent implements OnInit {
   updateForm() {
     this.title = 'Update Switch';
 
-    this.deviceService.getById<SuisType>(this.id).subscribe((device) => {
+    this.deviceService.getById<Suis>(this.id).subscribe((device) => {
 
       // Set value to common form field
       this.deviceForm.controls['name'].setValue(device.name );
@@ -135,7 +134,7 @@ export class DeviceFormSwitchComponent implements OnInit {
     });
   }
 
-  onDelete(action: ActionType) {
+  onDelete(action: Action) {
     const index = this.actions.indexOf(action);
     this.actions.splice(index, 1);
   }

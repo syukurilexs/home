@@ -5,7 +5,7 @@ import { DeviceService } from 'src/app/services/device.service';
 import { DeviceE } from 'src/app/enums/device-type.enum';
 import { StateE } from 'src/app/enums/state.enum';
 import { DeviceOld } from 'src/app/types/device-old.type';
-import { GroupType } from 'src/app/types/group.type';
+import { Group } from 'src/app/types/group.type';
 
 @Component({
   selector: 'app-group-item',
@@ -13,7 +13,7 @@ import { GroupType } from 'src/app/types/group.type';
   styleUrls: ['./group-item.component.scss'],
 })
 export class GroupItemComponent {
-  @Input() group!: GroupType;
+  @Input() group!: Group;
 
   constructor(
     iconRegistry: MatIconRegistry,
