@@ -1,29 +1,27 @@
 <div class="container" *ngIf="data">
-	<mat-card>
-		<mat-card-content>
+  <mat-card>
+    <mat-card-content>
+      <h4>List Of Devices</h4>
+      <div class="box">
+        <span>Scene Name:</span><span>{{ data.name }}</span
+        ><span></span>
+        <ng-container *ngFor="let item of data.sceneDevice">
+          <span>Device</span><span>{{ item.device.name }} </span
+          ><span> {{ item.state }}</span>
+        </ng-container>
+      </div>
 
-			<h4>List Of Devices</h4>
-			<div class="box">
-				<span>Scene Name:</span><span>{{data.name}}</span><span></span>
-				<ng-container *ngFor="let item of data.sceneDevice">
-					<span>Device</span><span>{{item.device.name}} </span><span> {{item.state}}</span>
-				</ng-container>
-			</div>
-
-			<h4>Attached switches</h4>
-			<div class="column gap">
-				@for (suis of data.sceneAction; track suis) {
-				<div>
-
-					{{ suis.action.device?.name || 'N/A'}}
-					{{ suis.action.value }}
-				</div>
-				}
-				@empty() {
-				No switch
-				}
-			</div>
-
-		</mat-card-content>
-	</mat-card>
+      <h4>Attached switches</h4>
+      <div class="column gap">
+        @for (suis of data.sceneAction; track suis) {
+          <div>
+            {{ suis.action.device?.name || "N/A" }}
+            {{ suis.action.value }}
+          </div>
+        } @empty {
+          No switch
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
