@@ -1,12 +1,10 @@
-import { DeviceOld } from './device-old.type';
-
 export type SceneDto = {
-  name: string;
-  data: SceneData[];
-  actions: Number[];
-};
+    name: string;
+    devices: SceneDeviceDto[];
+    actions: number[];
+}
 
-export type SceneData = {
-  status: boolean;
-  device: DeviceOld;
-};
+export type SceneDeviceDto = {
+    id: number,
+    state: boolean;
+}

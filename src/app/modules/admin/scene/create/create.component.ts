@@ -1,5 +1,5 @@
 import { SceneService } from 'src/app/services/scene.service';
-import { SceneData } from 'src/app/types/scene-dto.type';
+import { SceneData } from 'src/app/types/scene-dto-old.type';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeviceService } from 'src/app/services/device.service';
@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { StateE } from 'src/app/enums/state.enum';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { SceneDto } from 'src/app/types/scene-dto.type';
 
 type SelectedSuisAction = { deviceId: number, actionId: number };
 @Component({
@@ -123,7 +124,7 @@ export class CreateComponent implements OnInit {
       this.selectedDevices = scene.sceneDevice.map((device) => {
         // Create new mapping
         const haha: SceneData = {
-          status: device.state === StateE.Off ? false : true,
+          state: device.state === StateE.Off ? false : true,
           device: device.device,
         };
 
@@ -155,7 +156,7 @@ export class CreateComponent implements OnInit {
   onAdd() {
     const device: DeviceOld | null = this.form.controls['device'].value;
     if (device) {
-      this.selectedDevices.push({ device, status: false });
+      this.selectedDevices.push({ device, state: false });
       const idx = this.devices.findIndex(
         (item) => item.id === (device as any).id
       );
@@ -166,25 +167,29 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Construct DTO
+    const sceneDto: SceneDto = {
+      name: this.form.controls['name'].value || '',
+      devices: this.selectedDevices.map(x => {
+        return {
+          id: x.device.id,
+          state: x.state
+        }
+      }),
+      actions: this.selectedActions.map( x => x.actionId) 
+    }
+
     if (this.id === undefined) {
       // Add new
       this.sceneService
-        .create({
-          name: this.form.controls['name'].value || '',
-          data: this.selectedDevices,
-          actions: []
-        })
+        .create(sceneDto)
         .subscribe((data) => {
           alert('Thanks!');
         });
     } else {
       // Edit
       this.sceneService
-        .updateById(this.id, {
-          name: this.form.controls['name'].value || '',
-          data: this.selectedDevices,
-          actions: this.selectedActions.map(x => x.actionId)
-        })
+        .updateById(this.id, sceneDto)
         .subscribe((data) => {
           alert('Thanks!');
         });

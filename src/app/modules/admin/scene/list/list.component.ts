@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, map, shareReplay, takeUntil } from 'rxjs';
 import { SceneService } from 'src/app/services/scene.service';
-import { SceneDto } from 'src/app/types/scene-dto.type';
 import { Scene } from 'src/app/types/scene.type';
 
 @Component({

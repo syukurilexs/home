@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { SceneData } from 'src/app/types/scene-dto.type';
+import { SceneData } from 'src/app/types/scene-dto-old.type';
 
 @Component({
   selector: 'app-scene-item',
@@ -9,8 +9,13 @@ import { SceneData } from 'src/app/types/scene-dto.type';
 export class SceneItemComponent {
   @Input() input!: SceneData[];
   @Output() delete: EventEmitter<number> = new EventEmitter();
+  @Output() inputChange = new EventEmitter<SceneData[]>();
 
   onDelete(id: number) {
     this.delete.emit(id);
+  }
+
+  onChange() {
+    this.inputChange.emit(this.input);
   }
 }

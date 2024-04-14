@@ -1,8 +1,8 @@
-import { SceneDto } from '../types/scene-dto.type';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Scene } from '../types/scene.type';
 import { environment } from '../../environments/environment';
+import { SceneDto } from '../types/scene-dto.type';
 
 @Injectable({
   providedIn: 'root',
