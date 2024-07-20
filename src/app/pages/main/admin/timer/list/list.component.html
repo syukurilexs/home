@@ -1,0 +1,52 @@
+<div class="container">
+  <header class="row jc-space-between">
+    <h2>Timer</h2>
+    <button mat-mini-fab color="primary" (click)="onClickedAdd()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </header>
+  <div class="content column gap1">
+    @for (item of devices; track $index) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ item.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @for (timer of item.timers; track $index) {
+            <div class="row ai-center gap">
+              <mat-checkbox
+                [checked]="timer.option === 'enable'"
+                (change)="onChange(item.id, timer)"
+              >
+              </mat-checkbox>
+              <span class="filler">
+                {{ timer.time }}
+              </span>
+              <span>
+                {{ timer.state }}
+              </span>
+              <div>
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="onEdit(item.id, timer.id)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+              <div>
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="onDelete(item.id, timer.id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>

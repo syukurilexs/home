@@ -1,0 +1,124 @@
+<header class="row jc-space-between ai-center">
+  <h2>{{ title }}</h2>
+
+  <button mat-mini-fab color="primary" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</header>
+<section>
+  <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+    <mat-card class="box-1">
+      <mat-card-header>
+        <mat-card-title>{{ subTitle + " " + title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Name -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
+        </div>
+
+        <!-- Mqtt Topic -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Mqtt Topic</mat-label>
+            <input matInput placeholder="Mqtt Topic" formControlName="topic" />
+          </mat-form-field>
+        </div>
+
+        <!-- Remark -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Remark</mat-label>
+            <input matInput placeholder="Remark" formControlName="remark" />
+          </mat-form-field>
+        </div>
+
+        <div class="box gap1" [ngClass]="{ mobile: isHandset }">
+          <!-- Suis -->
+          <mat-form-field class="filler">
+            <mat-label>Suis</mat-label>
+            <mat-select #selectedSuis placeholder="Suis" formControlName="suis">
+              @for (suis of switches; track $index) {
+                <mat-option [value]="suis.id">
+                  {{ suis.name }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Action -->
+          <mat-form-field class="filler">
+            <mat-label>Action</mat-label>
+            <mat-select placeholder="Action" formControlName="action">
+              @for (action of currentSuis(selectedSuis.value); track $index) {
+                <mat-option [value]="action.id">
+                  {{ action.key }} - {{ action.value }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Add button -->
+          <div class="p-top-8">
+            <button
+              mat-mini-fab
+              (click)="onAdd()"
+              type="button"
+              [disabled]="
+                !deviceForm.get('suis')?.valid ||
+                !deviceForm.get('action')?.valid
+              "
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="box">
+          <mat-card class="filler">
+            <mat-list role="list">
+              @for (item of selectedActions; track $index) {
+                <div>
+                  <mat-list-item role="listitem">
+                    <div class="row ai-center jc-space-between">
+                      <div>
+                        {{ item.name }} - {{ item.key }} - {{ item.value }}
+                      </div>
+                      <div class="full-width row jc-end">
+                        <button
+                          mat-mini-fab
+                          (click)="onDelete(item)"
+                          type="button"
+                        >
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                </div>
+              } @empty {
+								empty list
+							}
+            </mat-list>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="row jc-end gap1">
+        <button mat-raised-button color="accent" type="button" (click)="back()">
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="deviceForm.invalid"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

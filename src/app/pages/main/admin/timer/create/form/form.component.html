@@ -1,0 +1,65 @@
+<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Timer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Device" formControlName="device">
+              @for (device of devices; track $index) {
+                <mat-option [value]="device.id">
+                  {{ device.name }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (addressForm.controls["device"].hasError("required")) {
+              <mat-error> Device is <strong>required</strong> </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input
+              matInput
+              name="selected_time_A"
+              formControlName="selectedTime"
+              [ngxMatTimepicker]="pickerA"
+              placeholder="4:00 PM"
+              readonly
+            />
+            <mat-icon matSuffix (click)="pickerA.open()">
+              watch_later
+            </mat-icon>
+          </mat-form-field>
+          <ngx-mat-timepicker #pickerA></ngx-mat-timepicker>
+        </div>
+      </div>
+      <div class="row option">
+        <div class="col">
+          <mat-slide-toggle formControlName="state" #state>{{
+            state.checked ? "On " : "Off"
+          }}</mat-slide-toggle>
+        </div>
+        <div class="col">
+          <mat-checkbox formControlName="option" #option>{{
+            option.checked ? "Enable" : "Disable"
+          }}</mat-checkbox>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        [disabled]="addressForm.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        {{ submitButton }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

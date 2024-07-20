@@ -1,0 +1,16 @@
+<div class="box">
+    @for (job of jobs; track job) {
+    <div class="first-row">
+        <div class="column jc-center">
+            <span><b>{{job.name}}</b></span>
+            <span>{{job.device}}</span>
+        </div>
+    </div>
+    <div class="column gap">
+        <span><b>State is </b> {{job.state}} </span>
+        <span><b>Job is </b> {{job.status}} </span>
+        <span><b>Next run is </b> {{job.nextrun}} </span>
+        <span><b>Last run </b> {{job.lastrun}} </span>
+    </div>
+    }
+</div>

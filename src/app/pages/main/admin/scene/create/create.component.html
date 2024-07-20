@@ -1,0 +1,134 @@
+<div class="container">
+  <header class="row jc-space-between">
+    <h2>{{ title }}</h2>
+    <button mat-mini-fab color="primary" (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </header>
+  <section>
+    <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="box-1">
+        <mat-card-content>
+          <!-- Name -->
+          <div class="row">
+            <mat-form-field class="filler">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Name" formControlName="name" />
+            </mat-form-field>
+          </div>
+
+          <!-- Device -->
+          <div class="row gap">
+            <mat-form-field class="filler">
+              <mat-label>Device</mat-label>
+              <mat-select placeholder="Device" formControlName="device">
+                @for (device of devices; track $index) {
+                  <mat-option [value]="device">
+                    {{ device.name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <div class="p-top-8">
+              <button mat-mini-fab (click)="onAdd()" type="button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Device List-->
+          <div class="column">
+            <app-item
+              [(input)]="selectedDevices"
+              (delete)="onDelete($event)"
+            ></app-item>
+          </div>
+
+          <!-- Action Selection -->
+          <div class="gap box" [ngClass]="{ mobile: isHandset }">
+            <mat-form-field class="filler">
+              <mat-label>Suis</mat-label>
+              <mat-select
+                #selectedSuis
+                placeholder="Suis"
+                formControlName="suis"
+              >
+                @for (suis of switches; track $index) {
+                  <mat-option [value]="suis.id">
+                    {{ suis.name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="filler">
+              <mat-label>Action</mat-label>
+              <mat-select placeholder="Action" formControlName="action">
+                @for (action of currentSuis(selectedSuis.value); track $index) {
+                  <mat-option [value]="action.id">
+                    {{ action.key }} - {{ action.value }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <div class="p-top-8">
+              <button
+                mat-mini-fab
+                (click)="onAddSuis()"
+                type="button"
+                [disabled]="
+                  !form.get('suis')?.valid && !form.get('action')?.valid
+                "
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Action list -->
+          <div class="box">
+            <mat-card class="row filler">
+              <mat-list role="list">
+                @for (item of selectedActions; track $index) {
+                  <div>
+                    <mat-list-item role="listitem">
+                      <div class="row jc-space-between gap">
+                        <div class="column jc-center">
+                          {{ getSuis(item.deviceId)?.name }} -
+                          {{ item.actionId }} -
+                          {{ getAction(item.actionId)?.value }}
+                        </div>
+                        <div class="row jc-end">
+                          <button
+                            mat-mini-fab
+                            (click)="onDeleteAction(item)"
+                            type="button"
+                          >
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  </div>
+                }
+              </mat-list>
+            </mat-card>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="row jc-end">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Submit
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </section>
+</div>

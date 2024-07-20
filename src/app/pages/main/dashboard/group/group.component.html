@@ -1,0 +1,12 @@
+<div class="container">
+  <section class="mat-headline-small">
+    Groups
+  </section>
+  <section class="content" [ngClass]="{'mobile': isHandset}">
+    <!-- <app-group-item *ngFor="let item of groups" [group]="item"> -->
+			@for (item of groups; track $index) {
+				<app-item [group]="item"></app-item>
+			}
+    <!-- </app-group-item> -->
+  </section>
+</div>

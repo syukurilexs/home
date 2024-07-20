@@ -1,0 +1,23 @@
+<div class="column gap2">
+  @for (item of list; track $index) {
+    <div class="row ai-center gap2">
+      <span class="row filler">
+        {{ item.name }}
+      </span>
+
+      <div class="row jc-center gap1">
+        <button mat-mini-fab color="primary" (click)="onClickedInfo(item.id)">
+          <mat-icon>info</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="primary" (click)="onClickedEdit(item.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="accent" (click)="onClickedDelete(item.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
+</div>

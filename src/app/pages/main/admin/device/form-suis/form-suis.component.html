@@ -1,0 +1,109 @@
+<header class="row jc-space-between">
+  <h2>Switch</h2>
+
+  <button mat-mini-fab color="primary" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</header>
+<section>
+  <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+    <mat-card class="box-1">
+      <mat-card-header>
+        <mat-card-title>{{ title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Name -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
+        </div>
+
+        <!-- Mqtt Topic -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Mqtt Topic</mat-label>
+            <input matInput placeholder="Mqtt Topic" formControlName="topic" />
+          </mat-form-field>
+        </div>
+
+        <!-- Remark -->
+        <div class="row">
+          <mat-form-field class="filler">
+            <mat-label>Remark</mat-label>
+            <input matInput placeholder="Remark" formControlName="remark" />
+          </mat-form-field>
+        </div>
+
+        <div class="box gap1" [ngClass]="{ mobile: isHandset }">
+          <!-- Key -->
+          <mat-form-field class="filler">
+            <mat-label>Key</mat-label>
+            <input matInput placeholder="Key" formControlName="key" />
+          </mat-form-field>
+
+          <!-- Value -->
+          <mat-form-field class="filler">
+            <mat-label>Value</mat-label>
+            <input matInput placeholder="Value" formControlName="value" />
+          </mat-form-field>
+
+          <!-- add button -->
+          <div class="p-top-8">
+            <button
+              mat-mini-fab
+              (click)="onAdd()"
+              type="button"
+              [disabled]="
+                !deviceForm.get('key')?.valid || !deviceForm.get('value')?.valid
+              "
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Action List -->
+        <div class="row">
+          <mat-card class="filler">
+            <mat-list role="list">
+              @for (item of actions; track $index) {
+                <div>
+                  <mat-list-item role="listitem">
+                    <div class="row js-space-between">
+                      <div>{{ item.key }} - {{ item.value }}</div>
+                      <button
+                        mat-mini-fab
+                        (click)="onDelete(item)"
+                        type="button"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                </div>
+              } @empty {
+								No list
+							}
+            </mat-list>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="row jc-end gap1">
+        <button mat-raised-button color="accent" type="button" (click)="back()">
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="deviceForm.invalid"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

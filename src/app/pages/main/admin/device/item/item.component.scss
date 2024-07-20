@@ -1,0 +1,17 @@
+.card {
+	height: 100px;
+	width: 100px;
+	padding: 32px;
+	cursor: pointer;
+}
+
+span {
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding-top: 8px;
+}
+
+.active {
+	background-color: #e3e2f0;
+}

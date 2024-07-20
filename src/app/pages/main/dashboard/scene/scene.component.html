@@ -1,0 +1,15 @@
+<div class="container">
+  <section class="mat-headline-small">Scenes</section>
+  <section class="content" [ngClass]="{ mobile: isHandset }">
+    @for (scene of scenes; track $index) {
+      <mat-card
+        (click)="onClicked(scene)"
+        matRipple
+      >
+        <mat-card-content>
+          {{ scene.name | titlecase }}
+        </mat-card-content>
+      </mat-card>
+    }
+  </section>
+</div>
