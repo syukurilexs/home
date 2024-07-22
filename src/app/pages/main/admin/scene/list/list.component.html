@@ -1,11 +1,11 @@
 <div class="container">
   <header class="row jc-space-between">
-    <h2>Scenes</h2>
+    <h5>Scenes</h5>
     <button mat-mini-fab color="primary" (click)="onClickedAdd()">
       <mat-icon>add</mat-icon>
     </button>
   </header>
-  <div class="row gap" [ngClass]="{ mobile: isHandset }">
+  <div class="row gap2" [ngClass]="{ mobile: isHandset }">
     <section>
       <app-list-update
         [list]="scenes"

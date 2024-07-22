@@ -1,13 +1,13 @@
 <div class="container">
   <header class="row jc-space-between">
-    <h2>{{ title }}</h2>
+    <h5>{{ title }}</h5>
     <button mat-mini-fab color="primary" (click)="back()">
       <mat-icon>arrow_back</mat-icon>
     </button>
   </header>
   <section>
     <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
-      <mat-card class="box-1">
+      <mat-card>
         <mat-card-content>
           <!-- Name -->
           <div class="row">
@@ -18,7 +18,7 @@
           </div>
 
           <!-- Device -->
-          <div class="row gap">
+          <div class="row gap2">
             <mat-form-field class="filler">
               <mat-label>Device</mat-label>
               <mat-select placeholder="Device" formControlName="device">
@@ -30,11 +30,9 @@
               </mat-select>
             </mat-form-field>
 
-            <div class="p-top-8">
-              <button mat-mini-fab (click)="onAdd()" type="button">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
+            <button mat-mini-fab (click)="onAdd()" type="button">
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
 
           <!-- Device List-->
@@ -46,7 +44,7 @@
           </div>
 
           <!-- Action Selection -->
-          <div class="gap box" [ngClass]="{ mobile: isHandset }">
+          <div class="gap2 row" [ngClass]="{ mobile: isHandset }">
             <mat-form-field class="filler">
               <mat-label>Suis</mat-label>
               <mat-select
@@ -120,7 +118,7 @@
         </mat-card-content>
         <mat-card-actions class="row jc-end">
           <button
-            mat-raised-button
+            mat-flat-button
             color="primary"
             type="submit"
             [disabled]="form.invalid"

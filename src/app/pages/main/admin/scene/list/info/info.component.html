@@ -2,7 +2,7 @@
   <div class="container">
     <mat-card>
       <mat-card-content>
-        <h4>List Of Devices</h4>
+        <h5>List Of Devices</h5>
         <div class="box">
           <span>Scene Name:</span><span>{{ data.name }}</span
           ><span></span>
@@ -14,7 +14,7 @@
           }
         </div>
 
-        <h4>Attached switches</h4>
+        <h5>Attached switches</h5>
         <div class="column gap">
           @for (suis of data.sceneAction; track suis) {
             <div>
