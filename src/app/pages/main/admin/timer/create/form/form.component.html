@@ -1,44 +1,36 @@
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+<form [formGroup]="fg" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Timer</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Device" formControlName="device">
-              @for (device of devices; track $index) {
-                <mat-option [value]="device.id">
-                  {{ device.name }}
-                </mat-option>
-              }
-            </mat-select>
-            @if (addressForm.controls["device"].hasError("required")) {
-              <mat-error> Device is <strong>required</strong> </mat-error>
+      <div class="column">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Device" formControlName="device">
+            @for (device of devices; track $index) {
+              <mat-option [value]="device.id">
+                {{ device.name }}
+              </mat-option>
             }
-          </mat-form-field>
-        </div>
+          </mat-select>
+          @if (fg.controls["device"].hasError("required")) {
+            <mat-error> Device is <strong>required</strong> </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            name="selected_time_A"
+            formControlName="selectedTime"
+            [ngxMatTimepicker]="pickerA"
+            placeholder="4:00 PM"
+            readonly
+          />
+          <mat-icon matSuffix (click)="pickerA.open()" > schedule </mat-icon>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input
-              matInput
-              name="selected_time_A"
-              formControlName="selectedTime"
-              [ngxMatTimepicker]="pickerA"
-              placeholder="4:00 PM"
-              readonly
-            />
-            <mat-icon matSuffix (click)="pickerA.open()">
-              watch_later
-            </mat-icon>
-          </mat-form-field>
-          <ngx-mat-timepicker #pickerA></ngx-mat-timepicker>
-        </div>
-      </div>
-      <div class="row option">
+      <ngx-mat-timepicker #pickerA></ngx-mat-timepicker>
+      <div class="row gap1 ai-center">
         <div class="col">
           <mat-slide-toggle formControlName="state" #state>{{
             state.checked ? "On " : "Off"
@@ -53,8 +45,8 @@
     </mat-card-content>
     <mat-card-actions>
       <button
-        [disabled]="addressForm.invalid"
-        mat-raised-button
+        [disabled]="fg.invalid"
+        mat-flat-button
         color="primary"
         type="submit"
       >

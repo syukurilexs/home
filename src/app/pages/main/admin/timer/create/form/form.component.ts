@@ -23,13 +23,11 @@ import {
 } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import {
-  MatSlideToggle,
-  MatSlideToggleModule,
-} from '@angular/material/slide-toggle';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatInput } from '@angular/material/input';
-import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-form',
@@ -49,6 +47,7 @@ import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/but
     MatFormField,
     MatInput,
     MatButton,
+    MatIcon,
     ReactiveFormsModule,
     NgxMatTimepickerModule,
   ],
@@ -56,7 +55,7 @@ import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/but
   styleUrl: './form.component.scss',
 })
 export class FormComponent {
-  addressForm = this.fb.group({
+  fg = this.fb.group({
     device: [null, Validators.required],
     selectedTime: [null, Validators.required],
     state: [false, Validators.required],
@@ -83,16 +82,16 @@ export class FormComponent {
   updateForm() {
     // Get device to edit
     this.deviceService.getById<DeviceOld>(this.deviceId).subscribe((x) => {
-      this.addressForm.controls['device'].setValue(x.id as any);
+      this.fg.controls['device'].setValue(x.id as any);
     });
 
     // Get timer to edit
     this.timerService.getById(this.timerId).subscribe((x) => {
-      this.addressForm.controls['selectedTime'].setValue(x.time as any);
-      this.addressForm.controls['state'].setValue(
-        x.option === StateE.On ? true : false,
+      this.fg.controls['selectedTime'].setValue(x.time as any);
+      this.fg.controls['state'].setValue(
+        x.state === StateE.On ? true : false,
       );
-      this.addressForm.controls['option'].setValue(
+      this.fg.controls['option'].setValue(
         x.option === OptionE.Enable ? true : false,
       );
     });
@@ -124,7 +123,7 @@ export class FormComponent {
   }
 
   onSubmit(): void {
-    const value = this.addressForm.value;
+    const value = this.fg.value;
 
     const output: CreateTimer = {
       deviceId: value.device || 0,
