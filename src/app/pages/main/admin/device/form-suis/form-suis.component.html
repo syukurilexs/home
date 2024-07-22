@@ -1,5 +1,5 @@
 <header class="row jc-space-between">
-  <h2>Switch</h2>
+  <h5>Switch</h5>
 
   <button mat-mini-fab color="primary" (click)="back()">
     <mat-icon>arrow_back</mat-icon>
@@ -7,7 +7,7 @@
 </header>
 <section>
   <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
-    <mat-card class="box-1">
+    <mat-card class="column gap2">
       <mat-card-header>
         <mat-card-title>{{ title }}</mat-card-title>
       </mat-card-header>
@@ -36,7 +36,7 @@
           </mat-form-field>
         </div>
 
-        <div class="box gap1" [ngClass]="{ mobile: isHandset }">
+        <div class="row gap2" [ngClass]="{ mobile: isHandset }">
           <!-- Key -->
           <mat-form-field class="filler">
             <mat-label>Key</mat-label>
@@ -71,7 +71,7 @@
               @for (item of actions; track $index) {
                 <div>
                   <mat-list-item role="listitem">
-                    <div class="row js-space-between">
+                    <div class="row jc-space-between">
                       <div>{{ item.key }} - {{ item.value }}</div>
                       <button
                         mat-mini-fab
@@ -82,11 +82,13 @@
                       </button>
                     </div>
                   </mat-list-item>
-                  <mat-divider></mat-divider>
+                  @if (!$last) {
+                    <mat-divider></mat-divider>
+                  }
                 </div>
               } @empty {
-								No list
-							}
+                No list
+              }
             </mat-list>
           </mat-card>
         </div>
@@ -96,7 +98,7 @@
           Cancel
         </button>
         <button
-          mat-raised-button
+          mat-flat-button
           color="primary"
           type="submit"
           [disabled]="deviceForm.invalid"
