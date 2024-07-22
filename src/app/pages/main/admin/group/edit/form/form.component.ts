@@ -7,7 +7,7 @@ import { GroupService } from '../../../../../../services/group.service';
 import { DeviceService } from '../../../../../../services/device.service';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AsyncPipe, Location } from '@angular/common';
-import { MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow } from '@angular/material/chips';
+import { MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRemove, MatChipRow } from '@angular/material/chips';
 import {
   MatCard,
   MatCardActions,
@@ -15,10 +15,10 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatFormField, MatInput } from '@angular/material/input';
+import { MatInput } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/button';
+import { MatButton, } from '@angular/material/button';
 
 @Component({
   selector: 'app-form',
@@ -33,9 +33,10 @@ import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/but
     MatFormFieldModule,
     MatChipGrid,
     MatChipRow,
+    MatChipInput,
+    MatChipRemove,
     MatIcon,
     MatAutocompleteModule,
-    MatChipInput,
     MatButton,
     ReactiveFormsModule,
     AsyncPipe
