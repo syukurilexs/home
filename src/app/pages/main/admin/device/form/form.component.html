@@ -1,5 +1,5 @@
 <header class="row jc-space-between ai-center">
-  <h2>{{ title }}</h2>
+  <h5>{{ title }}</h5>
 
   <button mat-mini-fab color="primary" (click)="back()">
     <mat-icon>arrow_back</mat-icon>
@@ -7,7 +7,7 @@
 </header>
 <section>
   <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
-    <mat-card class="box-1">
+    <mat-card class="column gap2">
       <mat-card-header>
         <mat-card-title>{{ subTitle + " " + title }}</mat-card-title>
       </mat-card-header>
@@ -36,7 +36,7 @@
           </mat-form-field>
         </div>
 
-        <div class="box gap1" [ngClass]="{ mobile: isHandset }">
+        <div class="row gap2 ai-center" [ngClass]="{ mobile: isHandset }">
           <!-- Suis -->
           <mat-form-field class="filler">
             <mat-label>Suis</mat-label>
@@ -111,7 +111,7 @@
           Cancel
         </button>
         <button
-          mat-raised-button
+          mat-flat-button
           color="primary"
           type="submit"
           [disabled]="deviceForm.invalid"
