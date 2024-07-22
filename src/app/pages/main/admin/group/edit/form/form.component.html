@@ -1,61 +1,55 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Name" formControlName="name" />
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Devices</mat-label>
-            <mat-chip-grid #chipGrid aria-label="Device selection">
-              @for (device of devices; track $index) {
-                <mat-chip-row (removed)="remove(device)">
-                  {{ device.name }}
-                  <button matChipRemove [attr.aria-label]="'remove ' + device">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              }
-            </mat-chip-grid>
-            <input
-              placeholder="New Device..."
-              #fruitInput
-              formControlName="devices"
-              [matChipInputFor]="chipGrid"
-              [matAutocomplete]="auto"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)"
-            />
-            <mat-autocomplete
-              #auto="matAutocomplete"
-              (optionSelected)="selected($event)"
-            >
-              @for (device of filteredDevices | async; track $index) {
-                <mat-option [value]="device">
-                  {{ device.name }}
-                </mat-option>
-              }
-            </mat-autocomplete>
-          </mat-form-field>
-        </div>
+      <div class="column">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" formControlName="name" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Devices</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Device selection">
+            @for (device of devices; track $index) {
+              <mat-chip-row (removed)="remove(device)">
+                {{ device.name }}
+                <button matChipRemove [attr.aria-label]="'remove ' + device">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            }
+          </mat-chip-grid>
+          <input
+            placeholder="New Device..."
+            #fruitInput
+            formControlName="devices"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            @for (device of filteredDevices | async; track $index) {
+              <mat-option [value]="device">
+                {{ device.name }}
+              </mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
     </mat-card-content>
-    <mat-card-actions class="action">
+    <mat-card-actions class="row gap2">
+      <button mat-raised-button color="accent" type="button" (click)="back()">
+        Cancel
+      </button>
       <button
-        mat-raised-button
+        mat-flat-button
         [disabled]="form.invalid"
         color="primary"
         type="submit"
       >
         Submit
-      </button>
-      <button mat-raised-button color="accent" type="button" (click)="back()">
-        Cancel
       </button>
     </mat-card-actions>
   </mat-card>

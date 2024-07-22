@@ -1,11 +1,11 @@
 <div class="container">
 	<header class="row jc-space-between">
-		<h2>Group</h2>
+		<h5>Group</h5>
 		<button mat-mini-fab color="primary" (click)="onAddGroup()">
 			<mat-icon>add</mat-icon>
 		</button>
 	</header>
-	<div class="content row gap">
+	<div class="row gap2">
 		<section>
 			<app-list-update [list]="groups" (onEdit)="onClickedEdit($event)"
 				(onDelete)="onClickedDelete($event)" (onInfo)="onClickedInfo($event)"></app-list-update>
